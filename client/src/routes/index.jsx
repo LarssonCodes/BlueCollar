@@ -21,6 +21,7 @@ import EmployerLayout from '../components/layouts/EmployerLayout.jsx';
 import AdminLayout from '../layouts/AdminLayout.jsx';
 import SettingsPage from '../pages/public/SettingsPage.jsx';
 import NotFoundPage from '../pages/public/NotFoundPage.jsx';
+import HelpSupportPage from '../pages/public/HelpSupportPage.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 
 function DynamicRoleLayout() {
@@ -58,6 +59,7 @@ function AppRoutes() {
       <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/support" element={<HelpSupportPage />} />
 
       {/* Worker Routes */}
       <Route element={<RoleRoute role="WORKER" />}>
