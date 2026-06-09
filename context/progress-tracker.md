@@ -6,7 +6,7 @@
 
 **Phase 1 — Building Foundation: Unit 01, 02, 03, 04, 05, 06, 07 Complete**
 
-Unit 07 has been successfully completed. Workers can apply to jobs with optional cover notes, track all applications in a rich bento-card dashboard, and employers can manage applicants in a professional pipeline table with shortlist/reject actions and contact reveal.
+Unit 07 has been successfully completed. Additionally, a brand new **Help & Support Center** screen has been designed in Stitch and fully implemented in the React client with working interactive FAQs, search filtering, and a support request submission form.
 
 ---
 
