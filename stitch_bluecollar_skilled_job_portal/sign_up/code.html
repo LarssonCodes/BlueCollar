@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sign Up - BlueCollar</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with strict config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f7f9fb",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-container-high": "#e6e8ea",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "inverse-primary": "#b4c5ff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-tertiary-container": "#eef0ff",
+                        "primary": "#004ac6",
+                        "surface-tint": "#0053db",
+                        "inverse-surface": "#2d3133",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e0e3e5",
+                        "on-secondary-fixed": "#370e00",
+                        "on-primary-container": "#eeefff",
+                        "surface-dim": "#d8dadc",
+                        "tertiary-container": "#656d84",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f2f4f6",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-background": "#191c1e",
+                        "on-tertiary-fixed": "#131b2e",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#f7f9fb",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#dbe1ff",
+                        "on-tertiary-fixed-variant": "#3f465c",
+                        "on-secondary-fixed-variant": "#7f2b00",
+                        "tertiary-fixed-dim": "#bec6e0",
+                        "on-surface-variant": "#434655",
+                        "secondary-container": "#fd651e",
+                        "outline": "#737686",
+                        "on-primary-fixed": "#00174b",
+                        "background": "#f7f9fb",
+                        "on-surface": "#191c1e",
+                        "secondary-fixed-dim": "#ffb599",
+                        "secondary-fixed": "#ffdbce",
+                        "on-error": "#ffffff",
+                        "surface-container": "#eceef0",
+                        "primary-container": "#2563eb",
+                        "outline-variant": "#c3c6d7",
+                        "tertiary": "#4d556b",
+                        "secondary": "#a73a00",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#571a00",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#dae2fd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "base": "4px",
+                        "stack-lg": "32px",
+                        "stack-sm": "8px",
+                        "margin-mobile": "16px",
+                        "container-max": "1280px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Inter", "sans-serif"],
+                        "label-sm": ["Inter", "sans-serif"],
+                        "body-sm": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "headline-lg-mobile": ["Inter", "sans-serif"],
+                        "label-md": ["Inter", "sans-serif"],
+                        "headline-lg": ["Inter", "sans-serif"],
+                        "headline-md": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "headline-xl": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom styles for radio card selection */
+        input[type="radio"]:checked + div {
+            border-color: #004ac6; /* primary */
+            background-color: #f2f4f6; /* surface-container-low */
+        }
+        input[type="radio"]:checked + div .selection-icon {
+            color: #004ac6;
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface min-h-screen flex antialiased">
+<!-- Left Branding Panel (Hidden on Mobile) -->
+<div class="hidden lg:flex lg:w-5/12 relative flex-col justify-between p-12 overflow-hidden bg-on-surface">
+<!-- Background Image with Overlay -->
+<div class="absolute inset-0 z-0">
+<img alt="Background" class="w-full h-full object-cover opacity-40" data-alt="A wide shot of a modern construction site or industrial workspace at dawn, bathed in soft, cool morning light. Two professionals wearing hard hats are reviewing plans on a rugged tablet device, demonstrating technology integrating with manual labor. The aesthetic is clean, professional, and optimistic, adhering to a high-end corporate modern style. The color palette features cool grays, steel blues, and high-contrast lighting that emphasizes the sleekness of the technology against the industrial backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhDJnbELYjCscxtj9HPOwndnu3hEEUKOE0MsIOSRA5k-y_oxS4YiQyaV3BXIwmTaXq8-UAvUQSWdZdcEnaCHoD3pzKSqK0t915PQxsvjOjLbrdBWxHaixShSiwsEuUml_IxEmDpiLEv417__KpoTYNhGWUsC4quaagdk7Etm_sJnzieNvgaYKwvHBU3LmZbRGxH1zh6tWV6pdKlzIlUVN2g6Zdwag3dHWpjE5O3-Dal2ZNAlfVMa07PQyFKvnRRKIKfEoLD_esjOxi"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface via-on-surface/80 to-transparent"></div>
+</div>
+<!-- Content (Z-10) -->
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-16">
+<span class="material-symbols-outlined text-inverse-primary" style="font-size: 32px; font-variation-settings: 'FILL' 1;">architecture</span>
+<span class="font-headline-md text-headline-md text-surface-container-lowest">BlueCollar</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-surface-container-lowest mb-6 max-w-md">
+                Build your career.<br/>Hire the best.
+            </h1>
+<p class="font-body-lg text-body-lg text-surface-variant max-w-md">
+                The premier platform connecting skilled tradespeople with top-tier industrial and construction employers.
+            </p>
+</div>
+<div class="relative z-10 flex items-center gap-4">
+<div class="flex -space-x-3">
+<div class="w-10 h-10 rounded-full border-2 border-on-surface bg-surface-variant flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of a smiling male construction worker wearing a hard hat, looking professional and trustworthy. Bright, clear lighting, modern corporate style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdvO8Ehbr7IjpC-OWEPxxXqWEOqLXYfx_60QroaZtvEmjGRQasPiWjR7lgbl6ZHRQM4419i8LRf0c3j2FFbea_peBirvfRdzYDLIojsNQ0T4C0ed1CDn6SlF5TxUJmVR1x19Wrx9rfBtB-E2tRz42tDZL5_2ydXYQMQ2qwtYZ4REk9wm-POb8BsFEB2eu9TqQMjhytrjCNrossM1tqqJOyMhQyVTdYAXDOpsZC4VPCgrD78ov0YBZkhR7kG_A08DqiXTMHA1035MtB"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-on-surface bg-surface-variant flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of a female industrial project manager looking confident. Bright, clear lighting, modern corporate style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK6lF3kE1x3RwpG8NzImFeJarsGlPO8IC0UC7iL08Z1PCvaYjlQTqmQ29KhLLko-K3UcweuQ9PeN3c8J3RgfZSWi0otzltaAcergQH9mnzrC2zM7xpgwMTDNLMH8p3NBGsKCYAL0JyfOHiypGqoew__xC081y8GvnFFkj_9qGHCkTYX1ek_XNNBkzBmCZYtyL0N7uN7yvi_fybnamoej1jEU9LPvfd1J8YUFo2ZrogFQPZptAHnQkV0pDu3G6XhmpfY1PhFmNKzAUW"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-on-surface bg-surface-container flex items-center justify-center">
+<span class="font-label-sm text-label-sm text-on-surface">+2k</span>
+</div>
+</div>
+<p class="font-label-sm text-label-sm text-surface-variant">Professionals joined this week</p>
+</div>
+</div>
+<!-- Right Form Panel -->
+<div class="w-full lg:w-7/12 flex items-center justify-center p-6 sm:p-12 lg:p-24 overflow-y-auto">
+<div class="w-full max-w-lg bg-surface-container-lowest p-8 sm:p-10 rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),_0_1px_2px_rgba(0,0,0,0.02)] border border-surface-container-highest">
+<!-- Mobile Logo (Visible only on small screens) -->
+<div class="flex items-center gap-2 mb-8 lg:hidden justify-center">
+<span class="material-symbols-outlined text-primary" style="font-size: 28px; font-variation-settings: 'FILL' 1;">architecture</span>
+<span class="font-headline-md text-headline-md text-on-surface">BlueCollar</span>
+</div>
+<div class="mb-stack-lg text-center lg:text-left">
+<h2 class="font-headline-lg-mobile lg:font-headline-lg text-headline-lg-mobile lg:text-headline-lg text-on-surface mb-2">Create an account</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Join the network of skilled professionals and top employers.</p>
+</div>
+<form action="#" class="space-y-stack-md" method="POST">
+<!-- Account Type Selection (Bento Style) -->
+<div class="space-y-2 mb-stack-lg">
+<label class="font-label-md text-label-md text-on-surface block">I am joining as a:</label>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<!-- Worker Option -->
+<label class="relative cursor-pointer group">
+<input checked="" class="peer sr-only" name="account_type" type="radio" value="worker"/>
+<div class="h-full p-4 rounded-lg border-2 border-outline-variant bg-surface-container-lowest transition-all duration-200 group-hover:border-primary/50 flex flex-col items-start gap-3">
+<span class="material-symbols-outlined text-on-surface-variant selection-icon transition-colors">handyman</span>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Worker</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">I want to find jobs and manage my career.</p>
+</div>
+</div>
+</label>
+<!-- Employer Option -->
+<label class="relative cursor-pointer group">
+<input class="peer sr-only" name="account_type" type="radio" value="employer"/>
+<div class="h-full p-4 rounded-lg border-2 border-outline-variant bg-surface-container-lowest transition-all duration-200 group-hover:border-primary/50 flex flex-col items-start gap-3">
+<span class="material-symbols-outlined text-on-surface-variant selection-icon transition-colors">domain</span>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Employer</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">I want to post jobs and hire talent.</p>
+</div>
+</div>
+</label>
+</div>
+</div>
+<!-- Input Fields -->
+<div class="space-y-4">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="fullName">Full Name</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">person</span>
+</div>
+<input class="w-full pl-10 pr-4 py-2.5 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors" id="fullName" name="fullName" placeholder="John Doe" type="text"/>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="email">Email Address</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">mail</span>
+</div>
+<input class="w-full pl-10 pr-4 py-2.5 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors" id="email" name="email" placeholder="john@example.com" type="email"/>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="phone">Phone Number</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">call</span>
+</div>
+<input class="w-full pl-10 pr-4 py-2.5 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors" id="phone" name="phone" placeholder="(555) 123-4567" type="tel"/>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="password">Password</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">lock</span>
+</div>
+<input class="w-full pl-10 pr-10 py-2.5 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors" id="password" name="password" placeholder="••••••••" type="password"/>
+<button class="absolute inset-y-0 right-0 pr-3 flex items-center text-on-surface-variant hover:text-on-surface transition-colors" onclick="togglePassword()" type="button">
+<span class="material-symbols-outlined text-[20px]" id="visibilityIcon">visibility_off</span>
+</button>
+</div>
+<p class="mt-2 font-body-sm text-body-sm text-on-surface-variant">Must be at least 8 characters long.</p>
+</div>
+</div>
+<!-- Terms Checkbox -->
+<div class="flex items-start mt-6">
+<div class="flex items-center h-5">
+<input class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary focus:ring-2 bg-surface-container-lowest cursor-pointer" id="terms" name="terms" type="checkbox"/>
+</div>
+<div class="ml-3 text-sm">
+<label class="font-body-sm text-body-sm text-on-surface-variant cursor-pointer" for="terms">
+                            I agree to the <a class="font-label-md text-primary hover:underline" href="#">Terms of Service</a> and <a class="font-label-md text-primary hover:underline" href="#">Privacy Policy</a>.
+                        </label>
+</div>
+</div>
+<!-- Submit Button -->
+<button class="mt-8 w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-lg shadow-sm font-label-md text-label-md text-on-primary bg-primary hover:bg-surface-tint focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors cursor-pointer" type="submit">
+                    Create Account
+                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</form>
+<div class="mt-8 text-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Already have an account? 
+                    <a class="font-label-md text-primary hover:text-surface-tint font-semibold hover:underline transition-colors" href="#">Log in</a>
+</p>
+</div>
+</div>
+</div>
+<script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const visibilityIcon = document.getElementById('visibilityIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                visibilityIcon.textContent = 'visibility';
+            } else {
+                passwordInput.type = 'password';
+                visibilityIcon.textContent = 'visibility_off';
+            }
+        }
+    </script>
+</body></html>

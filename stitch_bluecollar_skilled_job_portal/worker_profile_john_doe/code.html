@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Worker Profile - BlueCollar</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#ffdbce",
+                        "surface-container": "#eceef0",
+                        "tertiary-fixed": "#dae2fd",
+                        "primary-fixed": "#dbe1ff",
+                        "surface-tint": "#0053db",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e0e3e5",
+                        "surface-container-highest": "#e0e3e5",
+                        "outline-variant": "#c3c6d7",
+                        "primary-container": "#2563eb",
+                        "on-surface": "#191c1e",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#eef0ff",
+                        "on-error-container": "#93000a",
+                        "on-background": "#191c1e",
+                        "surface-bright": "#f7f9fb",
+                        "secondary-container": "#fd651e",
+                        "background": "#f7f9fb",
+                        "secondary": "#a73a00",
+                        "inverse-surface": "#2d3133",
+                        "on-secondary-container": "#571a00",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#d8dadc",
+                        "secondary-fixed-dim": "#ffb599",
+                        "primary": "#004ac6",
+                        "surface": "#f7f9fb",
+                        "on-primary-fixed": "#00174b",
+                        "outline": "#737686",
+                        "on-tertiary-fixed-variant": "#3f465c",
+                        "surface-container-low": "#f2f4f6",
+                        "on-primary-container": "#eeefff",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#4d556b",
+                        "tertiary-container": "#656d84",
+                        "tertiary-fixed-dim": "#bec6e0",
+                        "on-secondary-fixed-variant": "#7f2b00",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#e6e8ea",
+                        "on-secondary-fixed": "#370e00",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-surface-variant": "#434655",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-tertiary-fixed": "#131b2e",
+                        "on-tertiary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "base": "4px",
+                        "margin-mobile": "16px",
+                        "stack-md": "16px",
+                        "stack-lg": "32px",
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "margin-desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .shadow-level-1 { box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.02); }
+        .shadow-level-2 { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.03); }
+        body { background-color: #F8FAFC; } /* Level 0 Background */
+    </style>
+</head>
+<body class="font-body-md text-on-surface min-h-screen flex flex-col md:flex-row">
+<!-- SideNavBar (Desktop) -->
+<nav aria-label="Main Navigation" class="hidden md:flex fixed left-0 top-0 h-full flex-col p-4 z-40 docked left-0 h-full w-64 border-r border-outline-variant shadow-sm bg-surface-container-lowest">
+<div class="mb-8">
+<span class="text-headline-sm font-headline-sm font-bold text-primary">BlueCollar</span>
+</div>
+<div class="flex items-center gap-3 mb-6">
+<img alt="Worker Profile Photo" class="w-12 h-12 rounded-full object-cover" data-alt="A professional headshot of a skilled blue-collar worker wearing safety gear, taken in a bright industrial setting. The portrait is sharply focused with soft, natural lighting creating a modern corporate aesthetic. The background is slightly blurred showing a clean construction site." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdqcVxEyAZMsuzFFqsZtRwp8Nbwr8RkuWVIcKwnDaPYCdbRW06r0GwA7LVt43GgksmUQBrfqBkCQTBBLl-DB1ESQ_8hi4HLJOXOcdG1wsl_vA0sYSfJnnRAsVzZ_NZTIctqsxis-ctZHVMlcebnWX0lbAnE6p3sLRU7oBJsA0NwC4C8my5X_nr4uz6z5lstnHLhZ8zic5Gk_gixbRErtAJ_ov2UOhZ_JzPm2MREtU63jslbIhQ64zwap1_8zJbP-mnWMmomzHkSG3j"/>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Worker Dashboard</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Skilled Professional</p>
+</div>
+</div>
+<ul class="flex flex-col gap-2 flex-grow">
+<li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-surface-container transition-all" href="#"><span class="material-symbols-outlined">dashboard</span> <span class="font-label-md text-label-md">Dashboard</span></a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-surface-container transition-all" href="#"><span class="material-symbols-outlined">search</span> <span class="font-label-md text-label-md">Browse Jobs</span></a></li>
+<li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-surface-container transition-all" href="#"><span class="material-symbols-outlined">assignment_turned_in</span> <span class="font-label-md text-label-md">My Applications</span></a></li>
+<li><a aria-current="page" class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-lg Active: translate-x-1 transition-transform" href="#"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span> <span class="font-label-md text-label-md">Profile</span></a></li>
+</ul>
+<div class="mt-auto">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg hover:bg-surface-container transition-all" href="#"><span class="material-symbols-outlined">logout</span> <span class="font-label-md text-label-md">Logout</span></a>
+</div>
+</nav>
+<!-- TopNavBar (Mobile) -->
+<nav class="md:hidden flex justify-between items-center w-full px-margin-mobile h-16 bg-surface border-b border-outline-variant shadow-sm sticky top-0 z-50">
+<span class="text-headline-sm font-headline-sm font-bold text-primary">BlueCollar</span>
+<button class="p-2 text-on-surface-variant"><span class="material-symbols-outlined">menu</span></button>
+</nav>
+<!-- Main Content -->
+<main class="flex-1 md:ml-64 p-margin-mobile md:p-margin-desktop max-w-container-max mx-auto w-full">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Left Column: Profile Summary (Bento Card 1) -->
+<div class="md:col-span-4 flex flex-col gap-stack-md">
+<div class="bg-surface-container-lowest rounded-xl shadow-level-1 p-6 flex flex-col items-center text-center border border-outline-variant/30">
+<div class="relative mb-4">
+<img alt="John Doe Avatar" class="w-32 h-32 rounded-full object-cover border-4 border-surface-container-lowest shadow-sm" data-alt="A professional headshot of a skilled electrician wearing a hard hat and safety vest, looking confidently at the camera. The setting is a clean, well-lit industrial workspace. The lighting is bright and modern, creating a professional and trustworthy aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvyPCzF8rFXiUsBR8U5XYJUbDl4jaafdaQRQUnFApqi_6H-eG5vleL3ySf41m1wScSjzhyKkJkJxNZaJD1Q45JZVe19uzecqeHI-zQJrbxyiFr6mwJf5vWiFOm89Chw-m91lpReya-xIkP83ATsh27z9I5QbyjLOCPIrtZP6c4kLhyDZDGbjIeAtjE3Yx88k-CHR4nmyxLW79zTIMdr6iWgIjNbRgXpkPlaYCIt1awKGTItsJtm2v9-D2FrbdAe1X2tJMSmz8TwGjY"/>
+<span class="absolute bottom-0 right-2 bg-green-100 text-green-800 rounded-full p-1 border-2 border-surface-container-lowest flex items-center justify-center" title="Verified Professional">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+</span>
+</div>
+<h1 class="font-headline-md text-headline-md mb-1">John Doe</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Master Electrician &amp; HVAC Specialist</p>
+<div class="flex flex-col gap-2 w-full mb-6">
+<div class="flex items-center justify-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px]">location_on</span> Austin, TX
+                        </div>
+<div class="flex items-center justify-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px]">mail</span> john.doe@example.com
+                        </div>
+<div class="flex items-center justify-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px]">phone</span> (555) 123-4567
+                        </div>
+</div>
+<div class="flex flex-col w-full gap-3">
+<button class="w-full py-2 px-4 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary-fixed-variant transition-colors shadow-sm">Edit Profile</button>
+<button class="w-full py-2 px-4 bg-transparent border border-outline text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors">Download Resume</button>
+</div>
+</div>
+<!-- Skills Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-level-1 p-6 border border-outline-variant/30">
+<h2 class="font-headline-sm text-headline-sm mb-4 flex items-center gap-2"><span class="material-symbols-outlined">build</span> Core Skills</h2>
+<div class="flex flex-wrap gap-2">
+<span class="bg-blue-50 text-blue-700 font-label-sm text-label-sm px-3 py-1 rounded">Electrician</span>
+<span class="bg-blue-50 text-blue-700 font-label-sm text-label-sm px-3 py-1 rounded">HVAC</span>
+<span class="bg-blue-50 text-blue-700 font-label-sm text-label-sm px-3 py-1 rounded">Team Lead</span>
+<span class="bg-blue-50 text-blue-700 font-label-sm text-label-sm px-3 py-1 rounded">Blueprint Reading</span>
+<span class="bg-blue-50 text-blue-700 font-label-sm text-label-sm px-3 py-1 rounded">Safety Protocols</span>
+</div>
+</div>
+</div>
+<!-- Main Column (Right) -->
+<div class="md:col-span-8 flex flex-col gap-stack-lg">
+<!-- Experience Timeline -->
+<section class="bg-surface-container-lowest rounded-xl shadow-level-1 p-6 md:p-8 border border-outline-variant/30">
+<h2 class="font-headline-md text-headline-md mb-6 flex items-center gap-2"><span class="material-symbols-outlined">work_history</span> Experience</h2>
+<div class="relative border-l-2 border-surface-container-high ml-3">
+<!-- Timeline Item 1 -->
+<div class="mb-8 ml-6 relative">
+<span class="absolute -left-[35px] top-1 bg-surface-container-lowest border-2 border-primary rounded-full w-4 h-4"></span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Senior Electrician</h3>
+<p class="font-label-md text-label-md text-primary mb-1">Texas Energy Solutions</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Jan 2020 - Present • Austin, TX</p>
+<p class="font-body-sm text-body-sm text-on-surface">Led a team of 5 technicians on commercial build-outs. Ensured all installations met local codes and safety standards. Managed project timelines and material procurement.</p>
+</div>
+<!-- Timeline Item 2 -->
+<div class="ml-6 relative">
+<span class="absolute -left-[35px] top-1 bg-surface-container-lowest border-2 border-outline-variant rounded-full w-4 h-4"></span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Journeyman Electrician</h3>
+<p class="font-label-md text-label-md text-primary mb-1">BuildRight Contractors</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Mar 2015 - Dec 2019 • Houston, TX</p>
+<p class="font-body-sm text-body-sm text-on-surface">Performed wiring, fixture installation, and troubleshooting in residential and light commercial settings. Promoted from apprentice after 2 years.</p>
+</div>
+</div>
+</section>
+<!-- Certifications -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+<div class="bg-surface-container-lowest rounded-xl shadow-level-1 p-6 border border-outline-variant/30 hover:shadow-level-2 transition-shadow cursor-pointer">
+<div class="flex items-start gap-4">
+<div class="p-3 bg-blue-50 text-blue-600 rounded-lg">
+<span class="material-symbols-outlined">workspace_premium</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm mb-1">Master Electrician License</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">State of Texas • Issued: 2018</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl shadow-level-1 p-6 border border-outline-variant/30 hover:shadow-level-2 transition-shadow cursor-pointer">
+<div class="flex items-start gap-4">
+<div class="p-3 bg-orange-50 text-orange-600 rounded-lg">
+<span class="material-symbols-outlined">verified</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm mb-1">EPA Universal Certification</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Environmental Protection Agency • Issued: 2016</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Portfolio Grid -->
+<section class="bg-surface-container-lowest rounded-xl shadow-level-1 p-6 md:p-8 border border-outline-variant/30">
+<h2 class="font-headline-md text-headline-md mb-6 flex items-center gap-2"><span class="material-symbols-outlined">photo_library</span> Portfolio</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+<div class="aspect-square rounded-lg overflow-hidden group relative cursor-pointer">
+<img alt="Electrical Panel Work" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A close-up shot of a newly installed, highly organized commercial electrical panel. The wiring is neatly color-coded and zip-tied, demonstrating expert craftsmanship. The lighting is bright and clear, highlighting the professional quality of the work." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAH-KleYf7gD4v8T7Sy1-xT7SdmdXNj2f-GNa8wg9Nnbx8bpEt0PDVqWVVd6QaLanNDuJrzoWZY48hJF3UEE-q5bYz1yH0WD1LfHoPpJg8_nX2WKMxUKwTtfJ_TAOOKQ1GVl4YW-KZJ1dJm0Ct3zMyxVWNpIocFtFGhpnvAXYMt3J3AUJbs-wWHecCvZfByhovv38L2HFoBf2GjU9fZFW7jy3Hm9-Be04YQzKFRlVY9fGN8INDs1up6l2qhQ4IeA9xdefbWlWRXRzf3"/>
+<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
+<span class="text-white font-label-sm text-label-sm">Commercial Panel Install</span>
+</div>
+</div>
+<div class="aspect-square rounded-lg overflow-hidden group relative cursor-pointer">
+<img alt="HVAC Installation" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A wide shot of a large industrial HVAC unit installed on a modern flat commercial roof. The sky is clear blue, and the metal ductwork shines in the sunlight, reflecting a clean, high-quality installation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1KIqoE5gHWB_jxQuCunXPzJssAh1zYT3bdKZIys9y4adgM75ULxk145TOQAi5M8lvPjw3Iupi8ycKNLoFYKB7SqapFJ_zghrhdSV8acFhE3J_X267DFrogI4--wjLTtpx-XXyVj0PUPS6Ko4sT9R92I2vEgravEgB21SehfZ8xmg3ZDFMwy8hT9s4dz6sX9d1AXqgcuU55-7J754QYlmAg2FrFQp0uk-h3udcsPenpUWxcthSaeYzf2M6bY_f3kY4vTSjFaURFtRt"/>
+<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
+<span class="text-white font-label-sm text-label-sm">Rooftop HVAC Unit</span>
+</div>
+</div>
+<div class="aspect-square rounded-lg overflow-hidden group relative cursor-pointer">
+<img alt="Wiring Layout" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A detailed view of rough-in electrical wiring in a new residential construction build. The exposed wooden studs frame neatly routed yellow and white Romex cables, showcasing precise and code-compliant rough-in work." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfkQQZySkzzTeubj9cLqcmpDqJeXDCom1VVguSTeaAVwk2vonkEkkZRkSLmZMeJanS3-5hDxEfkE-_YhCRuode91mnawfjbyghWx3-34BYCFuZIdPluIv76MS1032pyi-uQYIBaXNBMoyDX3eiMCIrds_-LWLEyf30NVnaRGGdTe6ljqnDD8lKw0W8A__URzmZWLR06fzoNY_a5CLESpKsVK9vyyoX8DKhUmye0Db_ngVNV4inO8vrmm1VphhAkWWW9nVtHFBh7708"/>
+<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
+<span class="text-white font-label-sm text-label-sm">Residential Rough-in</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Reviews -->
+<section class="bg-surface-container-lowest rounded-xl shadow-level-1 p-6 md:p-8 border border-outline-variant/30">
+<h2 class="font-headline-md text-headline-md mb-6 flex items-center gap-2"><span class="material-symbols-outlined">star</span> Reviews (4.9)</h2>
+<div class="flex flex-col gap-6">
+<!-- Review 1 -->
+<div class="pb-6 border-b border-surface-container-high last:border-0 last:pb-0">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h4 class="font-headline-sm text-headline-sm">Sarah Jenkins</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Project Manager at Apex Build</p>
+</div>
+<div class="flex text-orange-500">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface">"John is an exceptional professional. His attention to detail on our recent commercial complex build was outstanding. He led his crew efficiently and finished ahead of schedule."</p>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+</body></html>

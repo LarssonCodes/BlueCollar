@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BlueCollar | Connecting Skilled Workers</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#31394d",
+                        "tertiary-container": "#df7412",
+                        "outline-variant": "#424754",
+                        "on-tertiary": "#502400",
+                        "on-primary": "#002e6a",
+                        "background": "#0b1326",
+                        "on-secondary-fixed-variant": "#39485a",
+                        "inverse-primary": "#005ac2",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-container": "#00285d",
+                        "surface-container-high": "#222a3d",
+                        "surface-tint": "#adc6ff",
+                        "on-primary-fixed-variant": "#004395",
+                        "on-background": "#dae2fd",
+                        "secondary-container": "#39485a",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-surface-variant": "#c2c6d6",
+                        "on-tertiary-fixed": "#311400",
+                        "on-error": "#690005",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed": "#ffdcc6",
+                        "on-surface": "#dae2fd",
+                        "surface-container-highest": "#2d3449",
+                        "primary-container": "#4d8eff",
+                        "surface-container": "#171f33",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "on-primary-fixed": "#001a42",
+                        "on-tertiary-container": "#461f00",
+                        "on-secondary": "#233143",
+                        "surface-container-lowest": "#060e20",
+                        "primary-fixed": "#d8e2ff",
+                        "secondary-fixed-dim": "#b9c8de",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "primary": "#adc6ff",
+                        "inverse-on-surface": "#283044",
+                        "on-secondary-fixed": "#0d1c2d",
+                        "outline": "#8c909f",
+                        "on-secondary-container": "#a7b6cc",
+                        "secondary-fixed": "#d4e4fa",
+                        "surface-container-low": "#131b2e",
+                        "surface": "#0b1326",
+                        "inverse-surface": "#dae2fd",
+                        "error-container": "#93000a",
+                        "surface-dim": "#0b1326",
+                        "surface-variant": "#2d3449",
+                        "secondary": "#b9c8de",
+                        "tertiary": "#ffb786"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max-width": "1280px",
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "gutter": "16px",
+                        "margin-desktop": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "code": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "title-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "code": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0b1326;
+            color: #dae2fd;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #131b2e 0%, #171f33 100%);
+            border: 1px solid #1e293b;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background">
+<!-- Top Navigation Bar -->
+<header class="bg-surface dark:bg-surface border-b border-outline-variant dark:border-outline-variant w-full h-16 flex items-center sticky top-0 z-50">
+<nav class="flex justify-between items-center px-margin-desktop max-w-container-max-width mx-auto w-full">
+<div class="flex items-center gap-8">
+<img alt="BlueCollar Logo" class="h-8" src="https://lh3.googleusercontent.com/aida/AP1WRLsPN5n9cYQ1u3O0QX62xZxglxpQDbMzNfunZXZMH2rwL9K5R0QNYDipEuG4MyM5uJtpKwmp90LOzdEX8sWG3noGH0AnZifE3S0o5nas2mpnyjtLwDcx2UyKqOSUdlM1JYFnPM-GwLF24qSA3C-nZMtTYLPS38al-sjJYKONi77WiiSPuZasZ2R-87NRdJBl0xtGJgz6iCLRHPfDp1L633Sv7EMkr8L902E0L9FA5ki1kY-Cm6J31LCYYhSF"/>
+<div class="hidden md:flex gap-6">
+<a class="text-primary dark:text-primary border-b-2 border-primary font-body-md text-body-md py-1" href="#">Find Jobs</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md py-1" href="#">Post a Job</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md py-1" href="#">Resources</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-primary font-label-lg text-label-lg px-4 py-2 hover:bg-surface-container-high rounded-lg transition-all">Sign In</button>
+<button class="bg-primary text-on-primary font-label-lg text-label-lg px-6 py-2 rounded-lg hover:brightness-110 active:opacity-80 transition-all">Register</button>
+</div>
+</nav>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative pt-20 pb-32 overflow-hidden px-margin-desktop">
+<div class="max-w-container-max-width mx-auto bento-grid">
+<div class="col-span-12 lg:col-span-6 flex flex-col justify-center space-y-8">
+<div class="space-y-4">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-primary-container/20 text-primary border border-primary/30 font-label-md text-label-md uppercase tracking-wider">
+                            Empowering Bharat's Workforce
+                        </span>
+<h1 class="font-headline-lg text-headline-lg lg:text-[56px] lg:leading-[64px] text-on-surface font-extrabold tracking-tight">
+                            Connecting Skilled Workers <br/> With <span class="text-primary">Great Opportunities</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                            BlueCollar is India's premier digital ecosystem for professional skilled labor. We bridge the gap between talented technicians and industrial leaders through trust, transparency, and technology.
+                        </p>
+</div>
+<div class="flex flex-wrap gap-4">
+<div class="relative flex-1 min-w-[280px]">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">search</span>
+<input class="w-full pl-12 pr-4 py-4 bg-surface-container-lowest border border-outline-variant rounded-xl focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-on-surface" placeholder="Job title, skill, or keyword" type="text"/>
+</div>
+<button class="bg-primary text-on-primary px-8 py-4 rounded-xl font-title-lg text-title-lg shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
+                            Find Local Jobs
+                        </button>
+</div>
+<div class="flex items-center gap-6 pt-4">
+<div class="flex -space-x-3">
+<div class="w-10 h-10 rounded-full border-2 border-background bg-surface-container-high overflow-hidden" data-alt="Close up portrait of a smiling Indian electrician wearing a yellow safety vest and helmet, professional studio lighting against a dark navy background.">
+<img alt="Worker" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8RPwddyeZq2KmbR0mcL2IlQxj9eTHrWaYG1uu2VbzWLxuDjnJxKE6rNj3vzfYJq_mM42r6lrv2zFBXqbKbGllgm-48RfMlCZbbFqkbU09DojmQe_znzw0-WhSj3FjR4rGx55xkll96E17-bWYgEYwD7ABeJYOPURT3-p65qszgpzjD2kw1B0MLyN_jvaVd8Vl450BiK8h3K9rGTaSsrvHkWM2qY1qyf0y6zGyuj_5HlrnsjroMkQiqbADUanpqtDccCFFE-2t1xEd"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-background bg-surface-container-high overflow-hidden" data-alt="Close up portrait of a confident female welder with protective goggles resting on her head, soft industrial lighting, professional aesthetic.">
+<img alt="Worker" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOYEYVJPcyRFemEEq0bP9CB-knJNnQlxpJpHYe6uPT8TkKepHTCbwG5Aq2UY2mFwqtRrv7qUZrW1PGtUr5mQQu6P5DAGxMSNKRG6CPzehAcHuV4KihZ5yGK6iXIOFQlfQXeilleNDOFQ3p0kVn5ToeHp_bcUyCdbXCd_lqwI2csv8EIt4h9oO8kqGv4E_uWLRx6MQvpX5npPIUadhFxpxegy5Q0xMypQvKNPvploK9rJUzyC6seoYmYo-0volAMq-MHqRt317o9dbV"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-background bg-surface-container-high overflow-hidden" data-alt="Close up portrait of a senior plumbing professional in blue overalls, warm focused lighting, representing experience and trust in a dark mode UI context.">
+<img alt="Worker" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvEKwQNCqqR3ii6xllbagxhcxYhQrYiedLjGi83kqV8hamTAZTK8J7lxSMbotZ7FJwdDG6mI4X_J24gazIVfvUDm96EK_G6obr_J9UK-EL0L-mmbj5sAVYo4PhV-sQ5jvL57-x0WflcIH1wx221Ao53srdLOm0zj8-Xlm7A3O25IOy20KniGF5WTY6k_Wle9wXK0yHzmq72mPhGyEjdwUkeLFp2igQTDJWtJIek8mU5iDBIgj3543j76f3tLqFfObA38z8wgvahqRF"/>
+</div>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface-variant">
+<span class="text-on-surface font-bold">12k+</span> professionals joined this week
+                        </p>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-6 relative flex justify-end items-center">
+<div class="relative z-10 w-full max-w-[600px] aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-outline-variant/30 group">
+<img alt="BlueCollar Professional Workers" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida/AP1WRLuAFk_ESPM-7Nhji6RzEffOG88NxbL6_dnv0inivpSHfkGPt8xpuynyokfFwj72mhobd9d1T_NYCa8tcunBltK8Q-QgI5ZSZTi4gStssqERndq8LS0y2Spx-uBkUpog5f6-MI7pJoRO70-lLGydEzQaAe1XF4w427hNYSqFOoT8Fcgztlvj-gU6Bb6T2V2xzvmA05qvsFhMAyEEb77wh6ifPRgV25jEUgSfKbYlOvDFVDneA2LggSdYeGnh"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent"></div>
+<div class="absolute bottom-6 left-6 right-6 glass-panel p-4 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary p-2 bg-primary/10 rounded-lg" style="font-variation-settings: 'FILL' 1;">verified</span>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">Verified Professionals</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Background checks completed</p>
+</div>
+</div>
+<div class="text-right">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold text-on-surface">4.9/5</span>
+</div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Avg Rating</p>
+</div>
+</div>
+</div>
+<!-- Decorative back elements -->
+<div class="absolute -top-10 -right-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl -z-10"></div>
+<div class="absolute -bottom-10 -left-10 w-80 h-80 bg-tertiary-container/10 rounded-full blur-3xl -z-10"></div>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="py-16 bg-surface-container-low border-y border-outline-variant/30">
+<div class="max-w-container-max-width mx-auto px-margin-desktop">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="text-center space-y-2">
+<p class="font-headline-lg text-headline-lg text-primary">500k+</p>
+<p class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest">Total Workers</p>
+</div>
+<div class="text-center space-y-2">
+<p class="font-headline-lg text-headline-lg text-primary">85k+</p>
+<p class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest">Active Jobs</p>
+</div>
+<div class="text-center space-y-2">
+<p class="font-headline-lg text-headline-lg text-primary">1,200+</p>
+<p class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest">Partner Companies</p>
+</div>
+<div class="text-center space-y-2">
+<p class="font-headline-lg text-headline-lg text-primary">₹42Cr+</p>
+<p class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest">Earnings Disbursed</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Bento Grid -->
+<section class="py-24 px-margin-desktop bg-background">
+<div class="max-w-container-max-width mx-auto">
+<div class="mb-16 text-center space-y-4">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Precision-Engineered for <span class="text-primary">Success</span></h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Our platform provides specialized tools whether you're a skilled professional looking for work or an industry leader seeking elite talent.</p>
+</div>
+<div class="bento-grid">
+<!-- Feature 1: Local Jobs -->
+<div class="col-span-12 md:col-span-8 stat-card rounded-2xl p-8 flex flex-col md:flex-row gap-8 overflow-hidden relative group">
+<div class="flex-1 space-y-6 relative z-10">
+<div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">location_on</span>
+</div>
+<div class="space-y-2">
+<h3 class="font-title-lg text-title-lg text-on-surface">Local Jobs in Real-Time</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Discover high-paying opportunities within 5km of your location. Our hyper-local routing ensures you spend less time commuting and more time earning.</p>
+</div>
+<ul class="space-y-3">
+<li class="flex items-center gap-3 text-on-surface-variant font-label-lg text-label-lg">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                                    Instant mobile alerts
+                                </li>
+<li class="flex items-center gap-3 text-on-surface-variant font-label-lg text-label-lg">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                                    Verified employer ratings
+                                </li>
+</ul>
+</div>
+<div class="flex-1 min-h-[200px] bg-surface-container-highest rounded-xl border border-outline-variant/30 p-4 relative group-hover:translate-y-[-10px] transition-transform duration-500">
+<!-- Visual representation of a job list -->
+<div class="space-y-3">
+<div class="bg-surface-container p-3 rounded-lg flex justify-between items-center border border-primary/20">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary/20 rounded flex items-center justify-center text-primary font-bold">ME</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">Master Electrician</p>
+<p class="text-[10px] text-on-surface-variant">Siemens Projects • 2.4km</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-primary font-bold">₹28k</p>
+<p class="text-[8px] text-outline uppercase">Applied</p>
+</div>
+</div>
+<div class="bg-surface-container/50 p-3 rounded-lg flex justify-between items-center border border-outline-variant/20">
+<div class="flex items-center gap-3 opacity-60">
+<div class="w-10 h-10 bg-on-surface-variant/20 rounded flex items-center justify-center text-on-surface-variant font-bold">HV</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">HVAC Tech</p>
+<p class="text-[10px] text-on-surface-variant">Sterling &amp; Wilson • 4.1km</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-on-surface-variant font-bold">₹35k</p>
+<p class="text-[8px] text-outline uppercase">Active</p>
+</div>
+</div>
+</div>
+<div class="absolute bottom-4 left-0 right-0 h-24 bg-gradient-to-t from-surface-container-highest to-transparent pointer-events-none"></div>
+</div>
+</div>
+<!-- Feature 2: Hiring Workers -->
+<div class="col-span-12 md:col-span-4 stat-card rounded-2xl p-8 flex flex-col justify-between group">
+<div class="space-y-6">
+<div class="w-12 h-12 bg-tertiary/10 rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary">groups</span>
+</div>
+<div class="space-y-2">
+<h3 class="font-title-lg text-title-lg text-on-surface">Hiring Workers</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Onboard skilled teams at scale. Access our database of 500k+ certified professionals with verified work history.</p>
+</div>
+</div>
+<button class="mt-8 flex items-center justify-between w-full p-4 bg-surface-container rounded-xl border border-outline-variant hover:border-tertiary transition-colors">
+<span class="font-label-lg text-label-lg text-on-surface">Post a Requirement</span>
+<span class="material-symbols-outlined text-tertiary group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</button>
+</div>
+<!-- Feature 3: Skills Assessment -->
+<div class="col-span-12 md:col-span-4 stat-card rounded-2xl p-8 flex flex-col justify-between group">
+<div class="space-y-6">
+<div class="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">verified_user</span>
+</div>
+<div class="space-y-2">
+<h3 class="font-title-lg text-title-lg text-on-surface">Skill Verification</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Get the 'Verified Pro' badge. Take our proprietary assessments to prove your expertise to top employers.</p>
+</div>
+</div>
+<div class="flex items-center gap-4 mt-8 opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
+<div class="h-1 w-full bg-outline-variant rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[75%]"></div>
+</div>
+<span class="font-label-md text-label-md text-secondary">75%</span>
+</div>
+</div>
+<!-- Feature 4: Digital Payments -->
+<div class="col-span-12 md:col-span-8 stat-card rounded-2xl p-8 flex flex-col md:flex-row gap-8 overflow-hidden">
+<div class="flex-1 space-y-6">
+<div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+</div>
+<div class="space-y-2">
+<h3 class="font-title-lg text-title-lg text-on-surface">Guaranteed Payments</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Never chase a payment again. Our escrow-style system ensures workers are paid instantly upon job completion and employer approval.</p>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-on-surface">4.8h</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Avg. Payout Time</span>
+</div>
+<div class="w-px h-10 bg-outline-variant"></div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-on-surface">0%</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Payment Dispute Rate</span>
+</div>
+</div>
+</div>
+<div class="flex-1 flex items-center justify-center">
+<div class="relative w-48 h-48">
+<div class="absolute inset-0 bg-primary/10 rounded-full animate-pulse"></div>
+<div class="absolute inset-4 bg-primary/20 rounded-full animate-ping"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-6xl" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-24 px-margin-desktop">
+<div class="max-w-container-max-width mx-auto bg-primary rounded-3xl p-12 text-center relative overflow-hidden">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.2),transparent)]"></div>
+<div class="relative z-10 space-y-8">
+<h2 class="font-headline-lg text-headline-lg text-on-primary max-w-2xl mx-auto">Ready to build the future of India's workforce?</h2>
+<p class="font-body-lg text-body-lg text-on-primary/80 max-w-xl mx-auto">Whether you're looking for your next gig or building a world-class team, BlueCollar is your professional home.</p>
+<div class="flex flex-wrap justify-center gap-4">
+<button class="bg-on-primary text-primary px-8 py-4 rounded-xl font-title-lg text-title-lg hover:bg-white transition-all shadow-xl">Join as a Worker</button>
+<button class="bg-primary-container text-on-primary-container px-8 py-4 rounded-xl font-title-lg text-title-lg hover:brightness-110 transition-all border border-on-primary/20">Hire for Business</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-outline-variant dark:border-outline-variant w-full py-12 px-margin-desktop">
+<div class="flex flex-col md:flex-row justify-between items-center max-w-container-max-width mx-auto gap-8">
+<div class="flex flex-col items-center md:items-start gap-4">
+<img alt="BlueCollar Logo" class="h-8 brightness-0 invert opacity-80" src="https://lh3.googleusercontent.com/aida/AP1WRLsPN5n9cYQ1u3O0QX62xZxglxpQDbMzNfunZXZMH2rwL9K5R0QNYDipEuG4MyM5uJtpKwmp90LOzdEX8sWG3noGH0AnZifE3S0o5nas2mpnyjtLwDcx2UyKqOSUdlM1JYFnPM-GwLF24qSA3C-nZMtTYLPS38al-sjJYKONi77WiiSPuZasZ2R-87NRdJBl0xtGJgz6iCLRHPfDp1L633Sv7EMkr8L902E0L9FA5ki1kY-Cm6J31LCYYhSF"/>
+<p class="font-body-md text-body-md text-on-surface-variant text-center md:text-left">
+                    © 2024 BlueCollar India. Professional skilled labor portal.
+                </p>
+</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary underline transition-opacity duration-200" href="#">Privacy Policy</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary underline transition-opacity duration-200" href="#">Terms of Service</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary underline transition-opacity duration-200" href="#">Contact Us</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary underline transition-opacity duration-200" href="#">About</a>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center cursor-pointer hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant text-xl">share</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center cursor-pointer hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant text-xl">public</span>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions and subtle scroll effects
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                        entry.target.classList.remove('opacity-0', 'translate-y-10');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.stat-card').forEach(card => {
+                card.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
+                observer.observe(card);
+            });
+        });
+    </script>
+</body></html>

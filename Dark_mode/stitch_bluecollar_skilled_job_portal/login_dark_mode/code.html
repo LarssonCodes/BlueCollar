@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login | BlueCollar India</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#31394d",
+                    "tertiary-container": "#df7412",
+                    "outline-variant": "#424754",
+                    "on-tertiary": "#502400",
+                    "on-primary": "#002e6a",
+                    "background": "#0b1326",
+                    "on-secondary-fixed-variant": "#39485a",
+                    "inverse-primary": "#005ac2",
+                    "on-error-container": "#ffdad6",
+                    "on-primary-container": "#00285d",
+                    "surface-container-high": "#222a3d",
+                    "surface-tint": "#adc6ff",
+                    "on-primary-fixed-variant": "#004395",
+                    "on-background": "#dae2fd",
+                    "secondary-container": "#39485a",
+                    "primary-fixed-dim": "#adc6ff",
+                    "on-surface-variant": "#c2c6d6",
+                    "on-tertiary-fixed": "#311400",
+                    "on-error": "#690005",
+                    "error": "#ffb4ab",
+                    "tertiary-fixed": "#ffdcc6",
+                    "on-surface": "#dae2fd",
+                    "surface-container-highest": "#2d3449",
+                    "primary-container": "#4d8eff",
+                    "surface-container": "#171f33",
+                    "on-tertiary-fixed-variant": "#723600",
+                    "on-primary-fixed": "#001a42",
+                    "on-tertiary-container": "#461f00",
+                    "on-secondary": "#233143",
+                    "surface-container-lowest": "#060e20",
+                    "primary-fixed": "#d8e2ff",
+                    "secondary-fixed-dim": "#b9c8de",
+                    "tertiary-fixed-dim": "#ffb786",
+                    "primary": "#adc6ff",
+                    "inverse-on-surface": "#283044",
+                    "on-secondary-fixed": "#0d1c2d",
+                    "outline": "#8c909f",
+                    "on-secondary-container": "#a7b6cc",
+                    "secondary-fixed": "#d4e4fa",
+                    "surface-container-low": "#131b2e",
+                    "surface": "#0b1326",
+                    "inverse-surface": "#dae2fd",
+                    "error-container": "#93000a",
+                    "surface-dim": "#0b1326",
+                    "surface-variant": "#2d3449",
+                    "secondary": "#b9c8de",
+                    "tertiary": "#ffb786"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max-width": "1280px",
+                    "unit": "4px",
+                    "margin-mobile": "16px",
+                    "gutter": "16px",
+                    "margin-desktop": "24px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "code": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "title-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "code": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #060e20; /* Container Lowest as per DS */
+        }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(51, 65, 85, 0.5);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-body-md text-on-background selection:bg-primary selection:text-on-primary overflow-x-hidden">
+<!-- Global Header (Non-Functional for Auth Screen per Mandate) -->
+<header class="w-full h-20 flex items-center px-margin-desktop max-w-container-max-width mx-auto justify-center md:justify-start">
+<div class="font-headline-md text-headline-md font-bold text-primary">BlueCollar</div>
+</header>
+<main class="flex-grow flex items-center justify-center px-margin-mobile relative">
+<!-- Subtle Ambient Background Glow -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 blur-[120px] rounded-full pointer-events-none -z-10"></div>
+<!-- Login Container -->
+<div class="w-full max-w-[440px] glass-card rounded-xl shadow-2xl p-8 md:p-10 transition-all duration-300">
+<div class="text-center mb-8">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Welcome Back</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Enter your credentials to access your dashboard</p>
+</div>
+<!-- Social Login Cluster -->
+<div class="grid grid-cols-2 gap-4 mb-8">
+<button class="flex items-center justify-center gap-3 py-3 px-4 rounded-lg bg-surface-container-high hover:bg-surface-container-highest transition-all border border-outline-variant group active:scale-95 duration-75">
+<img alt="Google" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8atk3lYHVzI5msaLKakktoJmljHA3aes9nQVzCRi8xovTnTz1JXNLRMZtfVEVyZzQj2phCBbDDzpZbbNhwblQzZXMHTKAUJaJNvMyBmj03AzIDrtaFV2n4-NMp8L0AEPn_XA88rYpCezzhl9Gbg9oPHUk3FX6vc5t2sSIe5n5NYvdjXu2NRVLcUAdi6IcWP34Ttoaxtg8p8ZHEDC6RM7IM0Bzau2T1tXt7fm7jlYpbywsZJetr2aeziQDEU25lGxHCmWN8WMml12P"/>
+<span class="font-label-lg text-label-lg text-on-surface">Google</span>
+</button>
+<button class="flex items-center justify-center gap-3 py-3 px-4 rounded-lg bg-surface-container-high hover:bg-surface-container-highest transition-all border border-outline-variant group active:scale-95 duration-75">
+<span class="material-symbols-outlined text-[20px] text-on-surface">work</span>
+<span class="font-label-lg text-label-lg text-on-surface">LinkedIn</span>
+</button>
+</div>
+<!-- Divider -->
+<div class="relative mb-8 flex items-center">
+<div class="flex-grow border-t border-outline-variant"></div>
+<span class="mx-4 font-label-md text-label-md text-on-surface-variant bg-transparent">OR EMAIL</span>
+<div class="flex-grow border-t border-outline-variant"></div>
+</div>
+<!-- LoginForm -->
+<form class="space-y-6">
+<div>
+<label class="block font-label-lg text-label-lg text-on-surface-variant mb-2" for="email">Email Address</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">mail</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-3 pl-11 pr-4 text-on-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-outline" id="email" placeholder="name@company.com" type="email"/>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-2">
+<label class="block font-label-lg text-label-lg text-on-surface-variant" for="password">Password</label>
+<a class="font-label-md text-label-md text-primary hover:underline transition-all" href="#">Forgot?</a>
+</div>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">lock</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-3 pl-11 pr-4 text-on-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-outline" id="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+</div>
+<div class="flex items-center">
+<input class="w-4 h-4 rounded border-outline-variant bg-surface-container-lowest text-primary focus:ring-primary" id="remember" type="checkbox"/>
+<label class="ml-2 font-body-md text-body-md text-on-surface-variant cursor-pointer" for="remember">Keep me logged in</label>
+</div>
+<button class="w-full py-4 bg-primary text-on-primary rounded-lg font-title-lg text-title-lg font-bold hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-primary/20" type="submit">
+                    Sign In
+                </button>
+</form>
+<div class="mt-8 pt-8 border-t border-outline-variant text-center">
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    Don't have an account? 
+                    <a class="text-primary font-bold hover:underline transition-all ml-1" href="#">Create Account</a>
+</p>
+</div>
+</div>
+</main>
+<!-- Visual Footer -->
+<footer class="w-full py-12 px-margin-desktop bg-surface-container-lowest border-t border-outline-variant mt-auto">
+<div class="max-w-container-max-width mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-8">
+<div class="font-title-lg text-title-lg font-bold text-primary">BlueCollar</div>
+<p class="font-label-md text-label-md text-on-surface-variant">© 2024 BlueCollar India. Professional skilled labor portal.</p>
+</div>
+<nav class="flex gap-6">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Contact Us</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">About</a>
+</nav>
+</div>
+</footer>
+<script>
+        // Micro-interactions for form focus states
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.closest('.glass-card').style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 40px rgba(173, 198, 255, 0.1)';
+            });
+            input.addEventListener('blur', () => {
+                input.closest('.glass-card').style.boxShadow = '';
+            });
+        });
+
+        // Simple button active state handler for better haptics
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                let ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+    </script>
+</body></html>

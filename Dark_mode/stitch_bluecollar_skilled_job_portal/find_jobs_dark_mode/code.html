@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Find Jobs | BlueCollar India</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b1326;
+            color: #dae2fd;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #060e20;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #424754;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#31394d",
+                        "tertiary-container": "#df7412",
+                        "outline-variant": "#424754",
+                        "on-tertiary": "#502400",
+                        "on-primary": "#002e6a",
+                        "background": "#0b1326",
+                        "on-secondary-fixed-variant": "#39485a",
+                        "inverse-primary": "#005ac2",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-container": "#00285d",
+                        "surface-container-high": "#222a3d",
+                        "surface-tint": "#adc6ff",
+                        "on-primary-fixed-variant": "#004395",
+                        "on-background": "#dae2fd",
+                        "secondary-container": "#39485a",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-surface-variant": "#c2c6d6",
+                        "on-tertiary-fixed": "#311400",
+                        "on-error": "#690005",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed": "#ffdcc6",
+                        "on-surface": "#dae2fd",
+                        "surface-container-highest": "#2d3449",
+                        "primary-container": "#4d8eff",
+                        "surface-container": "#171f33",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "on-primary-fixed": "#001a42",
+                        "on-tertiary-container": "#461f00",
+                        "on-secondary": "#233143",
+                        "surface-container-lowest": "#060e20",
+                        "primary-fixed": "#d8e2ff",
+                        "secondary-fixed-dim": "#b9c8de",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "primary": "#adc6ff",
+                        "inverse-on-surface": "#283044",
+                        "on-secondary-fixed": "#0d1c2d",
+                        "outline": "#8c909f",
+                        "on-secondary-container": "#a7b6cc",
+                        "secondary-fixed": "#d4e4fa",
+                        "surface-container-low": "#131b2e",
+                        "surface": "#0b1326",
+                        "inverse-surface": "#dae2fd",
+                        "error-container": "#93000a",
+                        "surface-dim": "#0b1326",
+                        "surface-variant": "#2d3449",
+                        "secondary": "#b9c8de",
+                        "tertiary": "#ffb786"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max-width": "1280px",
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "gutter": "16px",
+                        "margin-desktop": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "code": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "title-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "code": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface custom-scrollbar">
+<!-- TopNavBar -->
+<header class="w-full h-16 flex items-center bg-surface dark:bg-surface border-b border-outline-variant dark:border-outline-variant fixed top-0 left-0 right-0 z-50">
+<div class="flex justify-between items-center px-margin-desktop max-w-container-max-width mx-auto w-full">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary">BlueCollar</span>
+<nav class="hidden md:flex gap-6">
+<a class="font-body-md text-body-md text-primary dark:text-primary border-b-2 border-primary cursor-pointer active:opacity-80 transition-colors" href="#">Find Jobs</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:opacity-80" href="#">Post a Job</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:opacity-80" href="#">Resources</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="font-label-lg text-label-lg px-4 py-2 text-on-surface-variant hover:text-primary transition-colors">Sign In</button>
+<button class="font-label-lg text-label-lg px-4 py-2 bg-primary text-on-primary rounded-lg font-bold hover:opacity-90 transition-all">Register</button>
+</div>
+</div>
+</header>
+<main class="pt-16 min-h-screen flex max-w-container-max-width mx-auto">
+<!-- Sidebar Filters -->
+<aside class="w-72 hidden lg:flex flex-col border-r border-outline-variant p-6 sticky top-16 h-[calc(100vh-64px)] overflow-y-auto custom-scrollbar">
+<h2 class="font-title-lg text-title-lg text-on-surface mb-6">Filters</h2>
+<div class="space-y-8">
+<!-- Search -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Keywords</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg pl-10 py-2 text-body-md focus:border-primary focus:ring-0 outline-none" placeholder="Electrician, Plumber..." type="text"/>
+</div>
+</div>
+<!-- Trade Category -->
+<div class="flex flex-col gap-3">
+<label class="font-label-md text-label-md text-on-surface-variant">Trade Category</label>
+<div class="flex flex-wrap gap-2">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1.5 rounded-lg text-label-md cursor-pointer hover:opacity-80">Electrician</span>
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1.5 rounded-lg text-label-md cursor-pointer hover:text-primary">Plumber</span>
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1.5 rounded-lg text-label-md cursor-pointer hover:text-primary">HVAC Tech</span>
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1.5 rounded-lg text-label-md cursor-pointer hover:text-primary">Carpenter</span>
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1.5 rounded-lg text-label-md cursor-pointer hover:text-primary">Welder</span>
+</div>
+</div>
+<!-- Pincode / Location -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Location (Pincode)</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">location_on</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg pl-10 py-2 text-body-md focus:border-primary focus:ring-0 outline-none" placeholder="Enter Pincode" type="text"/>
+</div>
+</div>
+<!-- Salary Range -->
+<div class="flex flex-col gap-3">
+<label class="font-label-md text-label-md text-on-surface-variant">Expected Salary (Monthly)</label>
+<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary" max="100000" min="10000" step="5000" type="range"/>
+<div class="flex justify-between text-label-md text-on-surface-variant">
+<span>₹10k</span>
+<span>₹100k+</span>
+</div>
+</div>
+<!-- Job Type -->
+<div class="flex flex-col gap-3">
+<label class="font-label-md text-label-md text-on-surface-variant">Employment Type</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="rounded border-outline-variant bg-surface-container-lowest text-primary focus:ring-0" type="checkbox"/>
+<span class="text-body-md text-on-surface group-hover:text-primary transition-colors">Full-time</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded border-outline-variant bg-surface-container-lowest text-primary focus:ring-0" type="checkbox"/>
+<span class="text-body-md text-on-surface group-hover:text-primary transition-colors">Part-time</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded border-outline-variant bg-surface-container-lowest text-primary focus:ring-0" type="checkbox"/>
+<span class="text-body-md text-on-surface group-hover:text-primary transition-colors">Contract</span>
+</label>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<section class="flex-1 p-margin-desktop bg-surface-container-lowest">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Skilled Trades in Mumbai</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-1">Found 1,248 active job listings</p>
+</div>
+<div class="flex items-center gap-2 bg-surface-container rounded-lg p-1 border border-outline-variant">
+<button class="px-4 py-2 rounded-md bg-secondary-container text-on-secondary-container text-label-lg">Latest</button>
+<button class="px-4 py-2 rounded-md hover:bg-surface-container-highest text-on-surface-variant text-label-lg transition-colors">High Pay</button>
+</div>
+</div>
+<!-- Bento/Grid Job Listings -->
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-gutter">
+<!-- Featured Job Card -->
+<div class="col-span-1 xl:col-span-2 group relative overflow-hidden bg-surface-container-low border border-outline-variant rounded-xl p-6 hover:border-primary transition-all duration-300">
+<div class="flex flex-col md:flex-row gap-6 relative z-10">
+<div class="w-20 h-20 rounded-lg bg-surface-container-high flex items-center justify-center shrink-0 border border-outline-variant group-hover:scale-105 transition-transform overflow-hidden">
+<img alt="Company Logo" class="w-full h-full object-cover" data-alt="A clean, professional minimalist corporate logo for an industrial infrastructure company. The logo features sharp geometric lines in primary blue and deep slate gray, presented on a subtle textured dark background. The lighting is focused and cinematic, emphasizing technical precision and architectural strength." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYoGgbf3KF-eGMXvCk7JHD2UB8YsMinax0F6iAsiSwGpk4rdvSTA2m_943YCDjqBhKaLsVMpxM0v5YmURmGsP5sVReJOo1gmobS4G80nTmzPEX0Pd2qOQYW71BnqwSDHXMqfuDFj7Wi7JI6Y0RHivFGATxnolPUNkkJoSV3nORb3DOUFC_zeBNqwTpKWpYOm74OR1HsVTujhCismxdehJL53a3AHeh3iMuqUKKFXiY7p9XDGveG5yqzsmvAjXoVV69IimtVyk9xki5"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="bg-primary-container/20 text-primary px-2 py-0.5 rounded text-label-md font-bold uppercase tracking-wider">Featured</span>
+<span class="text-on-surface-variant text-label-md">• Posted 2h ago</span>
+</div>
+<h3 class="font-title-lg text-title-lg text-on-surface group-hover:text-primary transition-colors">Industrial Lead Electrician</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">L&amp;T Infrastructure • Navi Mumbai, MH</p>
+</div>
+<div class="text-right">
+<div class="font-title-lg text-title-lg text-primary font-bold">₹45,000 - ₹60,000</div>
+<span class="text-label-md text-on-surface-variant">Per Month</span>
+</div>
+</div>
+<div class="mt-4 flex flex-wrap gap-2">
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">verified</span> 
+                                    Safety Certified
+                                </span>
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">home_repair_service</span> 
+                                    10+ Years Exp.
+                                </span>
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">apartment</span> 
+                                    Corporate Site
+                                </span>
+</div>
+<div class="mt-6 flex gap-3">
+<button class="flex-1 md:flex-none px-8 py-3 bg-primary text-on-primary font-bold rounded-lg hover:opacity-90 transition-all">Quick Apply</button>
+<button class="w-12 h-12 flex items-center justify-center border border-outline-variant rounded-lg hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined">bookmark</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Decorative element for glassmorphism effect -->
+<div class="absolute -right-10 -bottom-10 w-40 h-40 bg-primary/5 blur-3xl rounded-full"></div>
+</div>
+<!-- Regular Job Card 1 -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-6 hover:bg-surface-container transition-all group">
+<div class="flex gap-4 mb-4">
+<div class="w-14 h-14 bg-surface-container-high rounded-lg flex items-center justify-center shrink-0 border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-[32px]">plumbing</span>
+</div>
+<div class="flex-1">
+<h3 class="font-title-lg text-title-lg text-on-surface group-hover:text-primary transition-colors leading-tight">Emergency Support Plumber</h3>
+<p class="text-label-lg text-on-surface-variant">Urban Company • South Mumbai</p>
+</div>
+</div>
+<p class="text-body-md text-on-surface-variant line-clamp-2 mb-4">Urgent requirement for certified plumbers for residential high-rise maintenance. Must have own tools and basic English communication skills.</p>
+<div class="flex justify-between items-center py-4 border-t border-outline-variant">
+<div>
+<span class="text-primary font-bold">₹28,000</span>
+<span class="text-label-md text-on-surface-variant">/Mo</span>
+</div>
+<span class="text-label-md text-on-tertiary-fixed bg-tertiary-fixed px-2 py-0.5 rounded">Part-Time</span>
+</div>
+<button class="w-full py-2 bg-surface-container-highest text-on-surface font-semibold rounded-lg hover:bg-primary hover:text-on-primary transition-all">View Details</button>
+</div>
+<!-- Regular Job Card 2 -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-6 hover:bg-surface-container transition-all group">
+<div class="flex gap-4 mb-4">
+<div class="w-14 h-14 bg-surface-container-high rounded-lg flex items-center justify-center shrink-0 border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-[32px]">hvac</span>
+</div>
+<div class="flex-1">
+<h3 class="font-title-lg text-title-lg text-on-surface group-hover:text-primary transition-colors leading-tight">HVAC System Technician</h3>
+<p class="text-label-lg text-on-surface-variant">CoolMaster India • Thane West</p>
+</div>
+</div>
+<p class="text-body-md text-on-surface-variant line-clamp-2 mb-4">Seeking technicians for VRV/VRF system installation and troubleshooting at a large commercial mall project. Conveyance provided.</p>
+<div class="flex justify-between items-center py-4 border-t border-outline-variant">
+<div>
+<span class="text-primary font-bold">₹32,000</span>
+<span class="text-label-md text-on-surface-variant">/Mo</span>
+</div>
+<span class="text-label-md text-on-primary-fixed-variant bg-primary-fixed-dim/20 text-primary-fixed-dim px-2 py-0.5 rounded">Full-Time</span>
+</div>
+<button class="w-full py-2 bg-surface-container-highest text-on-surface font-semibold rounded-lg hover:bg-primary hover:text-on-primary transition-all">View Details</button>
+</div>
+<!-- Regular Job Card 3 -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-6 hover:bg-surface-container transition-all group">
+<div class="flex gap-4 mb-4">
+<div class="w-14 h-14 bg-surface-container-high rounded-lg flex items-center justify-center shrink-0 border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-[32px]">carpenter</span>
+</div>
+<div class="flex-1">
+<h3 class="font-title-lg text-title-lg text-on-surface group-hover:text-primary transition-colors leading-tight">Furniture Finisher &amp; Joiner</h3>
+<p class="text-label-lg text-on-surface-variant">WoodWork Studios • Goregaon East</p>
+</div>
+</div>
+<p class="text-body-md text-on-surface-variant line-clamp-2 mb-4">Expertise in luxury modular kitchen assembly and high-end veneer finishing. Previous experience with Hettich hardware is a plus.</p>
+<div class="flex justify-between items-center py-4 border-t border-outline-variant">
+<div>
+<span class="text-primary font-bold">₹22,000 - ₹35,000</span>
+</div>
+<span class="text-label-md text-on-surface-variant">Contract</span>
+</div>
+<button class="w-full py-2 bg-surface-container-highest text-on-surface font-semibold rounded-lg hover:bg-primary hover:text-on-primary transition-all">View Details</button>
+</div>
+<!-- Regular Job Card 4 -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-6 hover:bg-surface-container transition-all group">
+<div class="flex gap-4 mb-4">
+<div class="w-14 h-14 bg-surface-container-high rounded-lg flex items-center justify-center shrink-0 border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-[32px]">precision_manufacturing</span>
+</div>
+<div class="flex-1">
+<h3 class="font-title-lg text-title-lg text-on-surface group-hover:text-primary transition-colors leading-tight">Machine Operator (CNC)</h3>
+<p class="text-label-lg text-on-surface-variant">Precision Parts Ltd • Vasai Road</p>
+</div>
+</div>
+<p class="text-body-md text-on-surface-variant line-clamp-2 mb-4">Night shift operator required for CNC lathe. Must be able to read technical drawings and perform quality checks independently.</p>
+<div class="flex justify-between items-center py-4 border-t border-outline-variant">
+<div>
+<span class="text-primary font-bold">₹18,000 + OT</span>
+</div>
+<span class="text-label-md text-on-surface-variant">8hr Shift</span>
+</div>
+<button class="w-full py-2 bg-surface-container-highest text-on-surface font-semibold rounded-lg hover:bg-primary hover:text-on-primary transition-all">View Details</button>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-12 flex justify-center items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container-highest text-on-surface-variant">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container-highest text-on-surface-variant">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container-highest text-on-surface-variant">3</button>
+<span class="px-2 text-on-surface-variant">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container-highest text-on-surface-variant">42</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container-highest text-on-surface-variant">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</section>
+<!-- Right Side Panel (Insights / Alerts) -->
+<aside class="w-80 hidden xl:flex flex-col p-6 sticky top-16 h-[calc(100vh-64px)] overflow-y-auto custom-scrollbar gap-6">
+<div class="bg-surface-container rounded-xl p-5 border border-outline-variant">
+<h3 class="font-title-lg text-title-lg text-on-surface mb-2">Job Alerts</h3>
+<p class="text-body-md text-on-surface-variant mb-4">Get notified for new "Electrician" jobs in Mumbai.</p>
+<button class="w-full py-2.5 bg-primary/10 text-primary border border-primary/30 rounded-lg font-semibold hover:bg-primary hover:text-on-primary transition-all">Create Alert</button>
+</div>
+<div class="bg-surface-container rounded-xl overflow-hidden border border-outline-variant">
+<div class="p-5 border-b border-outline-variant">
+<h3 class="font-title-lg text-title-lg text-on-surface">Skill Insights</h3>
+<p class="text-label-md text-on-surface-variant">Based on your industry</p>
+</div>
+<div class="p-5 space-y-4">
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between text-label-lg">
+<span class="text-on-surface">Solar Installation</span>
+<span class="text-primary">+24%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full">
+<div class="w-[85%] h-full bg-primary rounded-full"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between text-label-lg">
+<span class="text-on-surface">Automation PLC</span>
+<span class="text-primary">+12%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full">
+<div class="w-[60%] h-full bg-primary rounded-full"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between text-label-lg">
+<span class="text-on-surface">Safety Standards</span>
+<span class="text-primary">+18%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full">
+<div class="w-[75%] h-full bg-primary rounded-full"></div>
+</div>
+</div>
+</div>
+<a class="block p-4 text-center text-label-lg text-primary hover:underline bg-surface-container-highest/30" href="#">View Market Report</a>
+</div>
+<div class="relative rounded-xl overflow-hidden aspect-[3/4] group cursor-pointer border border-outline-variant">
+<img alt="Training Promo" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A cinematic, low-angle shot of a skilled laborer wearing high-tech protective gear and a futuristic hardhat, working with glowing fiber optic cables in a dimly lit, high-performance server room environment. The color palette is dominated by deep blues and vibrant electric blue accents, reflecting a high-end corporate modern style. The atmosphere is professional, technical, and focused on advanced vocational skills." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBItVzCY2eQaqkxJHKJHFVeh2KACw7wA3AErrEppFArwfIllIxQE3-jP0eufYzjj-rVIWwxR2REDhlEBLCHh8zajC6KlgoMxFd81T3qh0uq-uOI8TE3CoRMDSJhkUuLx_r7nAL1pEZcXqs__pBrz9Rdjn2qKk9_EjbghxaBRV_eO5JM-xqyDaPgnS8QTnCSDtBBcTd2So4HBW8K4l3VH96bhK6wY8LzLYBqHYuPyX5vHY61AraofaQGSORWBEYmt7W-NCBVhsl6_FHq"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent opacity-80"></div>
+<div class="absolute bottom-0 left-0 p-6">
+<span class="bg-tertiary-container text-on-tertiary px-2 py-0.5 rounded text-label-md font-bold mb-2 inline-block">CERTIFICATION</span>
+<h4 class="font-headline-md text-headline-md text-white">Master Solar Tech</h4>
+<p class="text-body-md text-on-surface-variant mt-2">Get certified in 3 weeks. 100% placement support.</p>
+</div>
+</div>
+</aside>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-margin-desktop bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-outline-variant dark:border-outline-variant">
+<div class="flex flex-col md:flex-row justify-between items-start max-w-container-max-width mx-auto gap-8">
+<div class="flex flex-col gap-4 max-w-sm">
+<span class="font-title-lg text-title-lg font-bold text-primary">BlueCollar</span>
+<p class="font-body-md text-body-md text-on-surface-variant">Empowering India's skilled labor force with professional opportunities and growth tracking. The bridge between talent and industry.</p>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-12">
+<div class="flex flex-col gap-3">
+<h4 class="font-label-lg text-label-lg text-on-surface font-bold">For Workers</h4>
+<nav class="flex flex-col gap-2">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Find Jobs</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">My Profile</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Training</a>
+</nav>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-label-lg text-label-lg text-on-surface font-bold">For Employers</h4>
+<nav class="flex flex-col gap-2">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Post a Job</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Browse Workers</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Enterprise</a>
+</nav>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-label-lg text-label-lg text-on-surface font-bold">Company</h4>
+<nav class="flex flex-col gap-2">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">About</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Terms</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Privacy</a>
+</nav>
+</div>
+</div>
+</div>
+<div class="max-w-container-max-width mx-auto mt-12 pt-8 border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-4">
+<span class="font-label-md text-label-md text-on-surface-variant">© 2024 BlueCollar India. Professional skilled labor portal.</span>
+<div class="flex gap-6">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">language</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">share</span>
+</div>
+</div>
+</footer>
+<!-- FAB (Suppressed for this search-focused view as per guidelines, but adding minimal interaction script) -->
+<script>
+        // Micro-interactions for job cards
+        document.querySelectorAll('.group').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Filter interactivity
+        const chips = document.querySelectorAll('.bg-surface-container-highest');
+        chips.forEach(chip => {
+            chip.addEventListener('click', function() {
+                this.classList.toggle('bg-secondary-container');
+                this.classList.toggle('text-on-secondary-container');
+                this.classList.toggle('bg-surface-container-highest');
+                this.classList.toggle('text-on-surface-variant');
+            });
+        });
+    </script>
+</body></html>

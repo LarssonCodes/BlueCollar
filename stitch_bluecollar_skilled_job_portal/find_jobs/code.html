@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Find Jobs - BlueCollar</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "tertiary-fixed": "#dae2fd",
+                            "surface-container-highest": "#e0e3e5",
+                            "error": "#ba1a1a",
+                            "on-primary-fixed-variant": "#003ea8",
+                            "on-error-container": "#93000a",
+                            "on-secondary-container": "#571a00",
+                            "surface-container-lowest": "#ffffff",
+                            "outline-variant": "#c3c6d7",
+                            "surface-bright": "#f7f9fb",
+                            "secondary-fixed-dim": "#ffb599",
+                            "on-error": "#ffffff",
+                            "on-secondary": "#ffffff",
+                            "secondary-container": "#fd651e",
+                            "on-primary": "#ffffff",
+                            "outline": "#737686",
+                            "secondary": "#a73a00",
+                            "inverse-on-surface": "#eff1f3",
+                            "secondary-fixed": "#ffdbce",
+                            "surface-container-high": "#e6e8ea",
+                            "inverse-surface": "#2d3133",
+                            "primary-container": "#2563eb",
+                            "surface": "#f7f9fb",
+                            "primary-fixed-dim": "#b4c5ff",
+                            "error-container": "#ffdad6",
+                            "on-tertiary-fixed-variant": "#3f465c",
+                            "primary": "#004ac6",
+                            "tertiary-container": "#656d84",
+                            "surface-container": "#eceef0",
+                            "primary-fixed": "#dbe1ff",
+                            "on-surface": "#191c1e",
+                            "tertiary": "#4d556b",
+                            "on-tertiary": "#ffffff",
+                            "on-surface-variant": "#434655",
+                            "surface-container-low": "#f2f4f6",
+                            "background": "#f7f9fb",
+                            "on-background": "#191c1e",
+                            "on-secondary-fixed-variant": "#7f2b00",
+                            "on-tertiary-container": "#eef0ff",
+                            "on-primary-fixed": "#00174b",
+                            "on-secondary-fixed": "#370e00",
+                            "surface-tint": "#0053db",
+                            "tertiary-fixed-dim": "#bec6e0",
+                            "on-primary-container": "#eeefff",
+                            "inverse-primary": "#b4c5ff",
+                            "on-tertiary-fixed": "#131b2e",
+                            "surface-variant": "#e0e3e5",
+                            "surface-dim": "#d8dadc"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                    },
+                    "spacing": {
+                            "stack-sm": "8px",
+                            "stack-md": "16px",
+                            "container-max": "1280px",
+                            "stack-lg": "32px",
+                            "base": "4px",
+                            "gutter": "24px",
+                            "margin-desktop": "40px",
+                            "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                            "headline-xl": ["Inter"],
+                            "body-lg": ["Inter"],
+                            "headline-lg": ["Inter"],
+                            "headline-lg-mobile": ["Inter"],
+                            "headline-md": ["Inter"],
+                            "body-md": ["Inter"],
+                            "headline-sm": ["Inter"],
+                            "label-md": ["Inter"],
+                            "body-sm": ["Inter"],
+                            "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                            "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                            "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                            "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                            "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                            "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                            "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                            "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .shadow-level-1 {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.02);
+        }
+        
+        .shadow-level-2 {
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.03);
+        }
+
+        .job-card {
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .job-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.03);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-background text-on-background font-body-md">
+<!-- TopNavBar -->
+<nav class="bg-surface dark:bg-background text-primary dark:text-primary-fixed-dim shadow-sm dark:shadow-none border-b border-outline-variant dark:border-outline w-full fixed top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop h-16 max-w-container-max mx-auto">
+<div class="flex items-center gap-8">
+<a class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed" href="#">BlueCollar</a>
+<div class="hidden md:flex gap-6 items-center h-full">
+<a class="font-label-md text-label-md text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1 h-16 flex items-center hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors" href="#">Find Jobs</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:text-primary dark:hover:text-primary-fixed h-16 flex items-center hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors" href="#">Post Jobs</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-tertiary-fixed-variant hover:text-primary dark:hover:text-primary-fixed h-16 flex items-center hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors" href="#">About</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="font-label-md text-label-md text-on-surface hover:text-primary transition-colors">Login</button>
+<button class="font-label-md text-label-md bg-primary-container text-on-primary px-4 py-2 rounded flex items-center justify-center hover:bg-surface-tint transition-colors">Sign Up</button>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-24 pb-12 flex flex-col md:flex-row gap-gutter">
+<!-- Left Sidebar: Filters -->
+<aside class="w-full md:w-64 flex-shrink-0 bg-surface-container-lowest shadow-level-1 rounded-xl p-4 md:p-6 h-fit sticky top-24">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Filters</h2>
+<button class="font-label-sm text-label-sm text-primary hover:text-surface-tint">Clear All</button>
+</div>
+<!-- Trade Category -->
+<div class="mb-6">
+<h3 class="font-label-md text-label-md text-on-surface-variant mb-3">Trade Category</h3>
+<div class="flex flex-col gap-2">
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">Electrician</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input checked="" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">Plumber</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">Carpenter</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">HVAC Technician</span>
+</label>
+</div>
+</div>
+<hr class="border-t border-surface-container-high my-4"/>
+<!-- Pincode -->
+<div class="mb-6">
+<h3 class="font-label-md text-label-md text-on-surface-variant mb-3">Location (Pincode)</h3>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">location_on</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-2 pl-10 pr-3 font-body-sm text-body-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-shadow placeholder:text-outline" placeholder="Enter Pincode" type="text"/>
+</div>
+</div>
+<hr class="border-t border-surface-container-high my-4"/>
+<!-- Job Type -->
+<div class="mb-6">
+<h3 class="font-label-md text-label-md text-on-surface-variant mb-3">Job Type</h3>
+<div class="flex flex-col gap-2">
+<label class="flex items-center gap-2 cursor-pointer group">
+<input checked="" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">Contract</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input checked="" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">Gig / One-off</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">Full-Time</span>
+</label>
+</div>
+</div>
+<hr class="border-t border-surface-container-high my-4"/>
+<!-- Salary Range -->
+<div class="mb-6">
+<h3 class="font-label-md text-label-md text-on-surface-variant mb-3">Min Salary / Rate</h3>
+<div class="flex items-center gap-2">
+<span class="font-body-sm text-body-sm text-on-surface-variant">$</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-2 px-3 font-body-sm text-body-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-shadow placeholder:text-outline" placeholder="Min" type="number"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant">/hr</span>
+</div>
+</div>
+<button class="w-full bg-primary-container text-on-primary font-label-md text-label-md py-2 rounded-lg hover:bg-surface-tint transition-colors">Apply Filters</button>
+</aside>
+<!-- Right Content: Job Listings -->
+<section class="flex-1">
+<div class="flex justify-between items-center mb-6">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Found <span class="text-primary">124</span> Jobs</h1>
+<div class="flex items-center gap-2">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Sort by:</span>
+<select class="bg-surface-container-lowest border border-outline-variant rounded-lg py-1 px-3 font-body-sm text-body-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+<option>Newest First</option>
+<option>Highest Pay</option>
+<option>Nearest</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-stack-md">
+<!-- Job Card 1 -->
+<article class="job-card bg-surface-container-lowest shadow-level-1 rounded-xl p-4 md:p-6 border border-surface-variant hover:border-transparent">
+<div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-[#EFF6FF] text-[#2563EB] px-2 py-1 rounded font-label-sm text-label-sm">Plumber</span>
+<span class="bg-[#FFF7ED] text-[#EA580C] px-2 py-1 rounded font-label-sm text-label-sm flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">local_fire_department</span> Urgent</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-1">Master Plumber - Commercial Build</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Apex Construction Services</p>
+<div class="flex flex-wrap gap-x-6 gap-y-2 mb-4">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="font-body-sm text-body-sm">Downtown Seattle (98101)</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">$45 - $60 / hr</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">work</span>
+<span class="font-body-sm text-body-sm">Contract (3 Months)</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Need an experienced master plumber for a 3-month commercial build. Must have all own tools and current commercial licensing for WA state. Immediate start required.</p>
+</div>
+<div class="flex md:flex-col items-center md:items-end justify-between md:justify-start gap-4 shrink-0 mt-4 md:mt-0">
+<span class="font-body-sm text-body-sm text-outline">Posted 2h ago</span>
+<button class="bg-[#EA580C] text-white font-label-md text-label-md px-6 py-2 rounded-lg hover:opacity-90 transition-opacity w-full md:w-auto shadow-sm">Apply Now</button>
+</div>
+</div>
+</article>
+<!-- Job Card 2 -->
+<article class="job-card bg-surface-container-lowest shadow-level-1 rounded-xl p-4 md:p-6 border border-surface-variant hover:border-transparent">
+<div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-[#EFF6FF] text-[#2563EB] px-2 py-1 rounded font-label-sm text-label-sm">Electrician</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-1">Journeyman Electrician</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">VoltWorks Residential</p>
+<div class="flex flex-wrap gap-x-6 gap-y-2 mb-4">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="font-body-sm text-body-sm">Bellevue (98004)</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">$40 - $55 / hr</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">work</span>
+<span class="font-body-sm text-body-sm">Full-Time</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Seeking reliable journeyman electrician for residential service calls and minor remodels. Company van provided after 30 days. Valid driver's license required.</p>
+</div>
+<div class="flex md:flex-col items-center md:items-end justify-between md:justify-start gap-4 shrink-0 mt-4 md:mt-0">
+<span class="font-body-sm text-body-sm text-outline">Posted 1d ago</span>
+<button class="bg-[#2563EB] text-white font-label-md text-label-md px-6 py-2 rounded-lg hover:opacity-90 transition-opacity w-full md:w-auto shadow-sm">Apply Now</button>
+</div>
+</div>
+</article>
+<!-- Job Card 3 -->
+<article class="job-card bg-surface-container-lowest shadow-level-1 rounded-xl p-4 md:p-6 border border-surface-variant hover:border-transparent">
+<div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-[#EFF6FF] text-[#2563EB] px-2 py-1 rounded font-label-sm text-label-sm">Plumber</span>
+<span class="bg-surface-container-high text-on-surface px-2 py-1 rounded font-label-sm text-label-sm">Gig</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-1">Emergency Pipe Repair - Residential</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Homeowner: Sarah Jenkins</p>
+<div class="flex flex-wrap gap-x-6 gap-y-2 mb-4">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="font-body-sm text-body-sm">Renton (98055)</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">$200 Flat Rate</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">work</span>
+<span class="font-body-sm text-body-sm">Gig / One-off</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Burst pipe under kitchen sink. Need someone out here today to cap it and replace the damaged section. Easy access, clean environment.</p>
+</div>
+<div class="flex md:flex-col items-center md:items-end justify-between md:justify-start gap-4 shrink-0 mt-4 md:mt-0">
+<span class="font-body-sm text-body-sm text-outline">Posted 4h ago</span>
+<button class="bg-transparent border border-[#D1D5DB] text-[#1E293B] font-label-md text-label-md px-6 py-2 rounded-lg hover:bg-surface-container-low transition-colors w-full md:w-auto">View Details</button>
+</div>
+</div>
+</article>
+<!-- Pagination -->
+<div class="flex justify-center items-center gap-2 mt-8">
+<button class="w-10 h-10 rounded border border-outline-variant flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded bg-[#2563EB] text-white font-label-md text-label-md flex items-center justify-center">1</button>
+<button class="w-10 h-10 rounded border border-outline-variant text-on-surface font-label-md text-label-md flex items-center justify-center hover:bg-surface-container-low transition-colors">2</button>
+<button class="w-10 h-10 rounded border border-outline-variant text-on-surface font-label-md text-label-md flex items-center justify-center hover:bg-surface-container-low transition-colors">3</button>
+<span class="text-on-surface-variant">...</span>
+<button class="w-10 h-10 rounded border border-outline-variant flex items-center justify-center text-on-surface hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+</body></html>
