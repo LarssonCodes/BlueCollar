@@ -19,7 +19,8 @@ const corsOptions = {
     // Allow requests with no origin (like curl, postman, mobile apps, or local scripts)
     if (!origin) return callback(null, true);
     if (process.env.NODE_ENV === 'production') {
-      if (origin === process.env.CLIENT_URL) {
+      const allowedOrigin = process.env.CLIENT_URL ? process.env.CLIENT_URL.replace(/\/$/, '') : '';
+      if (origin === allowedOrigin) {
         return callback(null, true);
       } else {
         return callback(new Error('Not allowed by CORS'));
