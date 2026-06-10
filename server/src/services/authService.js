@@ -49,7 +49,7 @@ export const register = async ({ email, password, role }) => {
   // 4. Generate token
   const token = generateToken(user.id, user.role);
 
-  return { token, user };
+  return { token, user: { ...user, hasProfile: false } };
 };
 
 /**
@@ -58,7 +58,8 @@ export const register = async ({ email, password, role }) => {
 export const login = async ({ email, password }) => {
   // 1. Find user by email
   const user = await prisma.user.findUnique({
-    where: { email: email.toLowerCase() }
+    where: { email: email.toLowerCase() },
+    include: { workerProfile: true, employerProfile: true }
   });
 
   if (!user) {
@@ -83,7 +84,8 @@ export const login = async ({ email, password }) => {
     user: {
       id: user.id,
       email: user.email,
-      role: user.role
+      role: user.role,
+      hasProfile: !!(user.workerProfile || user.employerProfile)
     }
   };
 };
@@ -94,12 +96,7 @@ export const login = async ({ email, password }) => {
 export const getMe = async (userId) => {
   const user = await prisma.user.findUnique({
     where: { id: userId },
-    select: {
-      id: true,
-      email: true,
-      role: true,
-      createdAt: true
-    }
+    include: { workerProfile: true, employerProfile: true }
   });
 
   if (!user) {
@@ -108,7 +105,13 @@ export const getMe = async (userId) => {
     throw error;
   }
 
-  return user;
+  return {
+    id: user.id,
+    email: user.email,
+    role: user.role,
+    createdAt: user.createdAt,
+    hasProfile: !!(user.workerProfile || user.employerProfile)
+  };
 };
 
 /**
@@ -181,33 +184,22 @@ export const googleAuth = async ({ accessToken, role }) => {
   // 2. Look up user by email
   let user = await prisma.user.findUnique({
     where: { email: normalizedEmail },
+    include: { workerProfile: true, employerProfile: true }
   });
 
   if (!user) {
-    // 3. User does not exist, check if we have a role to register
-    if (!role) {
-      const error = new Error('Account does not exist. Please register first.');
-      error.status = 404;
-      throw error;
-    }
-
-    if (!['WORKER', 'EMPLOYER'].includes(role)) {
-      const error = new Error('Invalid role specified for registration');
-      error.status = 400;
-      throw error;
-    }
-
     // Generate a random secure password for the new OAuth user
     const randomPassword = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     const hashedPassword = await bcrypt.hash(randomPassword, 12);
 
-    // Create new user
+    // Create new user (Google signup defaults to WORKER; role can be changed on onboarding screen)
     user = await prisma.user.create({
       data: {
         email: normalizedEmail,
         password: hashedPassword,
-        role: role,
+        role: role || 'WORKER',
       },
+      include: { workerProfile: true, employerProfile: true }
     });
   }
 
@@ -220,7 +212,46 @@ export const googleAuth = async ({ accessToken, role }) => {
       id: user.id,
       email: user.email,
       role: user.role,
+      hasProfile: !!(user.workerProfile || user.employerProfile)
     },
+  };
+};
+
+/**
+ * Update user role (only allowed before setting up profile)
+ */
+export const updateRole = async ({ userId, role }) => {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    include: { workerProfile: true, employerProfile: true }
+  });
+
+  if (!user) {
+    const error = new Error('User not found');
+    error.status = 404;
+    throw error;
+  }
+
+  if (user.workerProfile || user.employerProfile) {
+    const error = new Error('Cannot change role after profile has been set up');
+    error.status = 400;
+    throw error;
+  }
+
+  const updatedUser = await prisma.user.update({
+    where: { id: userId },
+    data: { role },
+    select: {
+      id: true,
+      email: true,
+      role: true,
+      createdAt: true
+    }
+  });
+
+  return {
+    ...updatedUser,
+    hasProfile: false
   };
 };
 

@@ -24,6 +24,7 @@ import NotFoundPage from '../pages/public/NotFoundPage.jsx';
 import HelpSupportPage from '../pages/public/HelpSupportPage.jsx';
 import TermsPage from '../pages/public/TermsPage.jsx';
 import PrivacyPage from '../pages/public/PrivacyPage.jsx';
+import SetupRole from '../pages/public/SetupRole.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 
 function DynamicRoleLayout() {
@@ -39,6 +40,10 @@ function DynamicRoleLayout() {
 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
+  }
+
+  if (!user.hasProfile && user.role !== 'ADMIN') {
+    return <Navigate to="/setup-role" replace />;
   }
 
   if (user.role === 'WORKER') {
@@ -61,6 +66,7 @@ function AppRoutes() {
       <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/setup-role" element={<SetupRole />} />
       <Route path="/support" element={<HelpSupportPage />} />
       <Route path="/terms" element={<TermsPage />} />
       <Route path="/privacy" element={<PrivacyPage />} />

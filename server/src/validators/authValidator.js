@@ -23,3 +23,10 @@ export const googleAuthSchema = z.object({
   role: z.enum(['WORKER', 'EMPLOYER']).optional()
 });
 
+export const updateRoleSchema = z.object({
+  role: z.enum(['WORKER', 'EMPLOYER'], {
+    errorMap: () => ({ message: 'Role must be either WORKER or EMPLOYER' })
+  })
+});
+
+

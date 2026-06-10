@@ -48,3 +48,13 @@ export const googleAuth = async (req, res) => {
   });
 };
 
+export const updateRole = async (req, res) => {
+  const { role } = req.body;
+  const result = await authService.updateRole({ userId: req.user.userId, role });
+  res.status(200).json({
+    success: true,
+    data: result
+  });
+};
+
+

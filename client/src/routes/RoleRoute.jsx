@@ -16,6 +16,10 @@ export const RoleRoute = ({ role }) => {
     return <Navigate to="/login" replace />;
   }
 
+  if (!user.hasProfile && user.role !== 'ADMIN') {
+    return <Navigate to="/setup-role" replace />;
+  }
+
   if (user.role !== role) {
     // Redirect to correct role-based dashboard if they don't match the current route role
     if (user.role === 'WORKER') {

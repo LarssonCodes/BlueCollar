@@ -45,13 +45,18 @@ export const AuthProvider = ({ children }) => {
     checkAuth();
   }, []);
 
+  const updateUser = (updatedFields) => {
+    setUser(prev => prev ? { ...prev, ...updatedFields } : null);
+  };
+
   const value = {
     user,
     token,
     isAuthenticated: !!user,
     isLoading,
     login,
-    logout
+    logout,
+    updateUser
   };
 
   return (

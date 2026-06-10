@@ -32,7 +32,9 @@ export default function Login() {
                 const { token, user } = res.data.data;
                 authLogin(token, user);
                 
-                if (user.role === 'WORKER') navigate('/worker/dashboard');
+                if (!user.hasProfile && user.role !== 'ADMIN') {
+                  navigate('/setup-role');
+                } else if (user.role === 'WORKER') navigate('/worker/dashboard');
                 else if (user.role === 'EMPLOYER') navigate('/employer/dashboard');
                 else if (user.role === 'ADMIN') navigate('/admin');
               }
@@ -68,7 +70,9 @@ export default function Login() {
         const { token, user } = res.data.data;
         authLogin(token, user);
         
-        if (user.role === 'WORKER') navigate('/worker/dashboard');
+        if (!user.hasProfile && user.role !== 'ADMIN') {
+          navigate('/setup-role');
+        } else if (user.role === 'WORKER') navigate('/worker/dashboard');
         else if (user.role === 'EMPLOYER') navigate('/employer/dashboard');
         else if (user.role === 'ADMIN') navigate('/admin');
       }
