@@ -6,7 +6,7 @@ import { compressImage } from '../../utils/imageCompressor.js';
 import FormPageLayout from '../../components/layouts/FormPageLayout.jsx';
 
 function EmployerProfilePage() {
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
   const [profileExists, setProfileExists] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -159,6 +159,7 @@ function EmployerProfilePage() {
       } else {
         res = await createProfile(payload);
         setProfileExists(true);
+        updateUser({ hasProfile: true });
         setSuccessMessage('Profile created successfully!');
       }
 

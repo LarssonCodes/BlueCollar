@@ -25,6 +25,9 @@ import HelpSupportPage from '../pages/public/HelpSupportPage.jsx';
 import TermsPage from '../pages/public/TermsPage.jsx';
 import PrivacyPage from '../pages/public/PrivacyPage.jsx';
 import SetupRole from '../pages/public/SetupRole.jsx';
+import LinkedInCallback from '../pages/public/LinkedInCallback.jsx';
+import MockLinkedInLogin from '../pages/public/MockLinkedInLogin.jsx';
+import MockGoogleLogin from '../pages/public/MockGoogleLogin.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 
 function DynamicRoleLayout() {
@@ -42,7 +45,9 @@ function DynamicRoleLayout() {
     return <Navigate to="/login" replace />;
   }
 
-  if (!user.hasProfile && user.role !== 'ADMIN') {
+  const setupCompleted = localStorage.getItem('bluecollar_setup_completed') === 'true' || user.role === 'EMPLOYER' || user.role === 'ADMIN';
+
+  if (!user.hasProfile && !setupCompleted) {
     return <Navigate to="/setup-role" replace />;
   }
 
@@ -67,6 +72,9 @@ function AppRoutes() {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/setup-role" element={<SetupRole />} />
+      <Route path="/auth/linkedin/callback" element={<LinkedInCallback />} />
+      <Route path="/auth/linkedin/mock" element={<MockLinkedInLogin />} />
+      <Route path="/auth/google/mock" element={<MockGoogleLogin />} />
       <Route path="/support" element={<HelpSupportPage />} />
       <Route path="/terms" element={<TermsPage />} />
       <Route path="/privacy" element={<PrivacyPage />} />

@@ -29,4 +29,9 @@ export const updateRoleSchema = z.object({
   })
 });
 
+export const linkedinAuthSchema = z.object({
+  code: z.string().trim().min(1, 'Authorization code is required'),
+  role: z.enum(['WORKER', 'EMPLOYER']).optional()
+});
+
 

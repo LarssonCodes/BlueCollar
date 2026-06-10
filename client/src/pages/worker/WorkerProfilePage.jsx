@@ -17,7 +17,7 @@ const TRADE_CATEGORIES = [
 
 
 function WorkerProfilePage() {
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
   const [profileExists, setProfileExists] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -181,6 +181,7 @@ function WorkerProfilePage() {
       } else {
         res = await createProfile(payload);
         setProfileExists(true);
+        updateUser({ hasProfile: true });
         setSuccessMessage('Profile created successfully!');
       }
       

@@ -5,7 +5,7 @@ import { useLanguage } from '../../context/LanguageContext.jsx';
 import { updateRole } from '../../api/auth.js';
 
 export default function SetupRole() {
-  const { user, updateUser, isAuthenticated, isLoading } = useAuth();
+  const { user, login: authLogin, updateUser, isAuthenticated, isLoading } = useAuth();
   const { t } = useLanguage();
   const navigate = useNavigate();
 
@@ -50,11 +50,18 @@ export default function SetupRole() {
     try {
       // If the selected role is different from the current user role, update it on the backend
       if (role !== user.role) {
-        await updateRole({ role });
+        const res = await updateRole({ role });
+        if (res.data && res.data.success) {
+          const { token, user: updatedUser } = res.data.data;
+          authLogin(token, updatedUser);
+        }
+      } else {
+        // Update the user's role locally in the Auth Context
+        updateUser({ role });
       }
-      
-      // Update the user's role locally in the Auth Context
-      updateUser({ role });
+
+      // Mark setup as completed in localStorage
+      localStorage.setItem('bluecollar_setup_completed', 'true');
 
       // Navigate to the correct profile completion route
       if (role === 'WORKER') {

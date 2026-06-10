@@ -4,6 +4,8 @@ import { getJobById } from '../../api/jobs';
 import { getWorkerApplications } from '../../api/applications';
 import StatusBadge from '../../components/StatusBadge';
 import ApplyModal from '../../components/ApplyModal';
+import ConfirmModal from '../../components/ConfirmModal.jsx';
+import { useAuth } from '../../context/AuthContext.jsx';
 
 const TRADE_REQUIREMENTS = {
   ELECTRICIAN: [
@@ -70,12 +72,22 @@ const TRADE_BENEFITS = {
 function JobDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const [job, setJob] = useState(null);
   const [hasApplied, setHasApplied] = useState(false);
   const [showApplyModal, setShowApplyModal] = useState(false);
+  const [showIncompleteProfileModal, setShowIncompleteProfileModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const handleApplyClick = () => {
+    if (user && !user.hasProfile) {
+      setShowIncompleteProfileModal(true);
+    } else {
+      setShowApplyModal(true);
+    }
+  };
 
   useEffect(() => {
     const fetchJobAndApplications = async () => {
@@ -248,7 +260,7 @@ function JobDetailPage() {
                 </button>
               ) : (
                 <button
-                  onClick={() => setShowApplyModal(true)}
+                  onClick={handleApplyClick}
                   className="w-full bg-[#EA580C] text-white rounded-saas px-6 py-3 font-label-md text-label-md hover:bg-opacity-90 text-center transition-all cursor-pointer shadow-level-1"
                 >
                   Apply Now
@@ -323,7 +335,7 @@ function JobDetailPage() {
                 </button>
               ) : (
                 <button
-                  onClick={() => setShowApplyModal(true)}
+                  onClick={handleApplyClick}
                   className="w-full bg-[#EA580C] text-white rounded-saas px-6 py-3 font-label-md text-label-md hover:bg-opacity-90 text-center transition-all cursor-pointer shadow-level-1"
                 >
                   Apply Now
@@ -393,6 +405,18 @@ function JobDetailPage() {
             setShowApplyModal(false);
           }}
           onClose={() => setShowApplyModal(false)}
+        />
+      )}
+
+      {showIncompleteProfileModal && (
+        <ConfirmModal
+          isOpen={showIncompleteProfileModal}
+          title="Profile Incomplete"
+          message="Please complete your profile details first before applying for any jobs."
+          confirmLabel="Complete Profile"
+          confirmVariant="primary"
+          onConfirm={() => navigate('/worker/profile')}
+          onCancel={() => setShowIncompleteProfileModal(false)}
         />
       )}
     </div>

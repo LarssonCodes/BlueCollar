@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
   // Logout function
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('bluecollar_setup_completed');
     setToken(null);
     setUser(null);
   };

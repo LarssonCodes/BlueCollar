@@ -8,7 +8,8 @@ function ConfirmModal({
   onCancel,
   confirmLabel = 'Delete',
   loading = false,
-  isLoading = false
+  isLoading = false,
+  confirmVariant = 'danger'
 }) {
   const activeLoading = loading || isLoading;
 
@@ -61,12 +62,12 @@ function ConfirmModal({
             onClick={onConfirm}
             disabled={activeLoading}
             type="button"
-            className="bg-error text-on-error rounded-saas px-6 py-2.5 font-label-md text-label-md cursor-pointer hover:bg-opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            className={`${confirmVariant === 'primary' ? 'bg-primary text-on-primary hover:bg-surface-tint' : 'bg-error text-on-error hover:bg-opacity-90'} rounded-saas px-6 py-2.5 font-label-md text-label-md cursor-pointer transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2`}
           >
             {activeLoading ? (
               <>
                 <span className="animate-spin material-symbols-outlined text-sm">sync</span>
-                Deleting...
+                {confirmLabel === 'Delete' ? 'Deleting...' : 'Loading...'}
               </>
             ) : (
               confirmLabel

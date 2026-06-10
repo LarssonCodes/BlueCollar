@@ -32,7 +32,8 @@ export default function Login() {
                 const { token, user } = res.data.data;
                 authLogin(token, user);
                 
-                if (!user.hasProfile && user.role !== 'ADMIN') {
+                const setupCompleted = localStorage.getItem('bluecollar_setup_completed') === 'true' || user.role === 'EMPLOYER' || user.role === 'ADMIN';
+                if (!user.hasProfile && !setupCompleted) {
                   navigate('/setup-role');
                 } else if (user.role === 'WORKER') navigate('/worker/dashboard');
                 else if (user.role === 'EMPLOYER') navigate('/employer/dashboard');
@@ -51,11 +52,34 @@ export default function Login() {
   }, [authLogin, navigate, t]);
 
   const handleGoogleLogin = () => {
+    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+    const isMock = !clientId || clientId.includes('placeholder') || clientId.includes('mock');
+    
+    if (isMock) {
+      console.log("Using mock Google Sign-In sandbox.");
+      navigate('/auth/google/mock');
+      return;
+    }
+    
     if (googleClient) {
       googleClient.requestAccessToken();
     } else {
       setError('Google Sign-In is currently unavailable. Please verify the configuration.');
     }
+  };
+
+  const handleLinkedInLogin = () => {
+    const clientId = import.meta.env.VITE_LINKEDIN_CLIENT_ID;
+    const redirectUri = `${window.location.origin}/auth/linkedin/callback`;
+    
+    if (!clientId) {
+      console.log("No VITE_LINKEDIN_CLIENT_ID found. Using mock LinkedIn authentication.");
+      navigate('/auth/linkedin/mock');
+      return;
+    }
+    
+    const linkedinUrl = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=openid%20profile%20email`;
+    window.location.href = linkedinUrl;
   };
 
 
@@ -70,7 +94,8 @@ export default function Login() {
         const { token, user } = res.data.data;
         authLogin(token, user);
         
-        if (!user.hasProfile && user.role !== 'ADMIN') {
+        const setupCompleted = localStorage.getItem('bluecollar_setup_completed') === 'true' || user.role === 'EMPLOYER' || user.role === 'ADMIN';
+        if (!user.hasProfile && !setupCompleted) {
           navigate('/setup-role');
         } else if (user.role === 'WORKER') navigate('/worker/dashboard');
         else if (user.role === 'EMPLOYER') navigate('/employer/dashboard');
@@ -234,7 +259,12 @@ export default function Login() {
             </svg>
             <span className="font-label-sm text-label-sm text-on-surface">Google</span>
           </button>
-          <button className="flex items-center justify-center w-full px-4 py-2 border border-outline-variant rounded-lg bg-surface-container-lowest hover:bg-surface-container-low transition-colors" type="button">
+          <button
+            className="flex items-center justify-center w-full px-4 py-2 border border-outline-variant rounded-lg bg-surface-container-lowest hover:bg-surface-container-low transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            type="button"
+            onClick={handleLinkedInLogin}
+            disabled={isSubmitting}
+          >
             <svg className="h-5 w-5 mr-2 text-[#0A66C2]" fill="currentColor" viewBox="0 0 24 24">
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
             </svg>
@@ -247,14 +277,9 @@ export default function Login() {
           <p className="font-body-sm text-body-sm text-on-surface-variant mb-1">
             {t('login.noAccount')}
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-4 mt-2">
-            <Link to="/register?role=WORKER" className="font-label-md text-label-md text-primary hover:text-surface-tint transition-colors flex items-center font-bold">
-              {t('login.workerSignUp')}
-              <span className="material-symbols-outlined text-[16px] ml-0.5">arrow_forward</span>
-            </Link>
-            <span className="hidden sm:inline text-outline-variant/60">|</span>
-            <Link to="/register?role=EMPLOYER" className="font-label-md text-label-md text-secondary hover:text-on-secondary-container transition-colors flex items-center font-bold">
-              {t('login.employerSignUp')}
+          <div className="flex items-center justify-center gap-1.5 mt-2">
+            <Link to="/register" className="font-label-md text-label-md text-primary hover:text-surface-tint transition-colors flex items-center font-bold">
+              {t('login.registerNow') || 'Register'}
               <span className="material-symbols-outlined text-[16px] ml-0.5">arrow_forward</span>
             </Link>
           </div>

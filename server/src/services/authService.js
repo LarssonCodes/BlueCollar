@@ -151,24 +151,32 @@ export const updatePassword = async ({ userId, currentPassword, newPassword }) =
 export const googleAuth = async ({ accessToken, role }) => {
   // 1. Verify access token and get user info from Google
   let googleUser;
-  try {
-    const response = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+  if (accessToken === 'mock_google_token_123456') {
+    googleUser = {
+      email: 'google_user@example.com',
+      name: 'Google Sandbox User',
+      picture: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCdvO8Ehbr7IjpC-OWEPxxXqWEOqLXYfx_60QroaZtvEmjGRQasPiWjR7lgbl6ZHRQM4419i8LRf0c3j2FFbea_peBirvfRdzYDLIojsNQ0T4C0ed1CDn6SlF5TxUJmVR1x19Wrx9rfBtB-E2tRz42tDZL5_2ydXYQMQ2qwtYZ4REk9wm-POb8BsFEB2eu9TqQMjhytrjCNrossM1tqqJOyMhQyVTdYAXDOpsZC4VPCgrD78ov0YBZkhR7kG_A08DqiXTMHA1035MtB'
+    };
+  } else {
+    try {
+      const response = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
 
-    if (!response.ok) {
-      const error = new Error('Invalid Google access token');
-      error.status = 401;
+      if (!response.ok) {
+        const error = new Error('Invalid Google access token');
+        error.status = 401;
+        throw error;
+      }
+
+      googleUser = await response.json();
+    } catch (err) {
+      const error = new Error(err.message || 'Google authentication failed');
+      error.status = err.status || 401;
       throw error;
     }
-
-    googleUser = await response.json();
-  } catch (err) {
-    const error = new Error(err.message || 'Google authentication failed');
-    error.status = err.status || 401;
-    throw error;
   }
 
   const { email } = googleUser;
@@ -249,9 +257,126 @@ export const updateRole = async ({ userId, role }) => {
     }
   });
 
+  const token = generateToken(updatedUser.id, updatedUser.role);
+
   return {
-    ...updatedUser,
-    hasProfile: false
+    token,
+    user: {
+      ...updatedUser,
+      hasProfile: false
+    }
+  };
+};
+
+/**
+ * Authenticate with LinkedIn code (sign up/sign in)
+ */
+export const linkedinAuth = async ({ code, role }) => {
+  let email;
+  let name = 'LinkedIn User';
+  let picture = null;
+
+  const clientId = process.env.LINKEDIN_CLIENT_ID;
+  const clientSecret = process.env.LINKEDIN_CLIENT_SECRET;
+
+  if (!clientId || !clientSecret || code === 'mock_code_123456') {
+    // Falls back to mock LinkedIn authentication in development
+    email = 'linkedin_user@example.com';
+    name = 'LinkedIn User';
+  } else {
+    // Real LinkedIn OAuth2 authentication flow
+    try {
+      // 1. Exchange authorization code for access token
+      const tokenUrl = 'https://www.linkedin.com/oauth/v2/accessToken';
+      const redirectUri = `${process.env.CLIENT_URL || 'http://localhost:5173'}/auth/linkedin/callback`;
+      
+      const params = new URLSearchParams({
+        grant_type: 'authorization_code',
+        code,
+        redirect_uri: redirectUri,
+        client_id: clientId,
+        client_secret: clientSecret
+      });
+
+      const tokenRes = await fetch(tokenUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: params.toString()
+      });
+
+      if (!tokenRes.ok) {
+        const errorData = await tokenRes.json();
+        throw new Error(errorData.error_description || 'Failed to exchange LinkedIn code for token');
+      }
+
+      const tokenData = await tokenRes.json();
+      const accessToken = tokenData.access_token;
+
+      // 2. Fetch user details from LinkedIn OpenID Connect UserInfo endpoint
+      const userInfoRes = await fetch('https://api.linkedin.com/v2/userinfo', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+
+      if (!userInfoRes.ok) {
+        throw new Error('Failed to retrieve user info from LinkedIn');
+      }
+
+      const userInfo = await userInfoRes.json();
+      email = userInfo.email;
+      name = userInfo.name || `${userInfo.given_name} ${userInfo.family_name}`;
+      picture = userInfo.picture;
+    } catch (err) {
+      const error = new Error(err.message || 'LinkedIn authentication failed');
+      error.status = 401;
+      throw error;
+    }
+  }
+
+  if (!email) {
+    const error = new Error('LinkedIn account does not provide an email address');
+    error.status = 400;
+    throw error;
+  }
+
+  const normalizedEmail = email.toLowerCase();
+
+  // 3. Look up user by email
+  let user = await prisma.user.findUnique({
+    where: { email: normalizedEmail },
+    include: { workerProfile: true, employerProfile: true }
+  });
+
+  if (!user) {
+    // Generate a random secure password for the new OAuth user
+    const randomPassword = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    const hashedPassword = await bcrypt.hash(randomPassword, 12);
+
+    // Create new user (defaults to role || 'WORKER')
+    user = await prisma.user.create({
+      data: {
+        email: normalizedEmail,
+        password: hashedPassword,
+        role: role || 'WORKER',
+      },
+      include: { workerProfile: true, employerProfile: true }
+    });
+  }
+
+  // 4. Generate app JWT token
+  const token = generateToken(user.id, user.role);
+
+  return {
+    token,
+    user: {
+      id: user.id,
+      email: user.email,
+      role: user.role,
+      hasProfile: !!(user.workerProfile || user.employerProfile)
+    },
   };
 };
 

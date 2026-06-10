@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createJob } from '../../api/jobs.js';
 import FormPageLayout from '../../components/layouts/FormPageLayout.jsx';
+import ConfirmModal from '../../components/ConfirmModal.jsx';
+import { useAuth } from '../../context/AuthContext.jsx';
 
 const TRADE_CATEGORIES = [
   { value: '', label: 'Select a trade...' },
@@ -40,9 +42,17 @@ const TIPS = {
 
 function PostJobPage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showIncompleteProfileModal, setShowIncompleteProfileModal] = useState(false);
+
+  useEffect(() => {
+    if (user && !user.hasProfile) {
+      setShowIncompleteProfileModal(true);
+    }
+  }, [user]);
 
   // ── Step 1: Job Details ──
   const [title, setTitle] = useState('');
@@ -613,6 +623,17 @@ function PostJobPage() {
           </button>
         )}
       </div>
+      {showIncompleteProfileModal && (
+        <ConfirmModal
+          isOpen={showIncompleteProfileModal}
+          title="Profile Incomplete"
+          message="Please complete your profile details first before posting any jobs."
+          confirmLabel="Complete Profile"
+          confirmVariant="primary"
+          onConfirm={() => navigate('/employer/profile')}
+          onCancel={() => navigate('/employer/dashboard')}
+        />
+      )}
     </FormPageLayout>
   );
 }

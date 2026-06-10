@@ -58,11 +58,39 @@ export default function Register() {
       setError(t('register.errorTerms'));
       return;
     }
+    
+    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+    const isMock = !clientId || clientId.includes('placeholder') || clientId.includes('mock');
+    
+    if (isMock) {
+      console.log("Using mock Google Sign-In sandbox.");
+      navigate('/auth/google/mock');
+      return;
+    }
+    
     if (googleClient) {
       googleClient.requestAccessToken();
     } else {
       setError('Google Sign-In is currently unavailable. Please verify the configuration.');
     }
+  };
+
+  const handleLinkedInLogin = () => {
+    if (!agreeTerms) {
+      setError(t('register.errorTerms'));
+      return;
+    }
+    const clientId = import.meta.env.VITE_LINKEDIN_CLIENT_ID;
+    const redirectUri = `${window.location.origin}/auth/linkedin/callback`;
+    
+    if (!clientId) {
+      console.log("No VITE_LINKEDIN_CLIENT_ID found. Using mock LinkedIn authentication.");
+      navigate('/auth/linkedin/mock');
+      return;
+    }
+    
+    const linkedinUrl = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=openid%20profile%20email`;
+    window.location.href = linkedinUrl;
   };
 
 
@@ -91,11 +119,6 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-
-    if (!role) {
-      setError(t('register.errorSelectRole'));
-      return;
-    }
 
     if (password.length < 8) {
       setError(t('register.errorPasswordLength'));
@@ -189,53 +212,6 @@ export default function Register() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Account Type Selection (Bento Style) */}
-            <div className="space-y-2 mb-6">
-              <label className="font-label-md text-label-md text-on-surface block font-bold">
-                {t('register.roleLabel')}
-              </label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* Worker Option */}
-                <div
-                  onClick={() => setRole('WORKER')}
-                  className={`cursor-pointer p-4 rounded-lg border-2 bg-surface-container-lowest transition-all duration-200 flex flex-col items-start gap-3
-                    ${role === 'WORKER' 
-                      ? 'border-primary bg-surface-container-low/50' 
-                      : 'border-outline-variant/60 hover:border-primary/50'}`}
-                >
-                  <span className={`material-symbols-outlined text-on-surface-variant transition-colors
-                    ${role === 'WORKER' ? 'text-primary fill' : ''}`}>
-                    handyman
-                  </span>
-                  <div>
-                    <h3 className="font-label-md text-label-md text-on-surface font-bold">{t('register.workerCard')}</h3>
-                    <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-                      {t('register.workerDesc')}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Employer Option */}
-                <div
-                  onClick={() => setRole('EMPLOYER')}
-                  className={`cursor-pointer p-4 rounded-lg border-2 bg-surface-container-lowest transition-all duration-200 flex flex-col items-start gap-3
-                    ${role === 'EMPLOYER' 
-                      ? 'border-primary bg-surface-container-low/50' 
-                      : 'border-outline-variant/60 hover:border-primary/50'}`}
-                >
-                  <span className={`material-symbols-outlined text-on-surface-variant transition-colors
-                    ${role === 'EMPLOYER' ? 'text-primary fill' : ''}`}>
-                    domain
-                  </span>
-                  <div>
-                    <h3 className="font-label-md text-label-md text-on-surface font-bold">{t('register.employerCard')}</h3>
-                    <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-                      {t('register.employerDesc')}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
 
             {/* Input Fields */}
             <div className="space-y-4">
@@ -357,11 +333,16 @@ export default function Register() {
               </svg>
               <span className="font-label-sm text-label-sm text-on-surface">Google</span>
             </button>
-            <button className="flex items-center justify-center w-full px-4 py-2 border border-outline-variant rounded-lg bg-surface-container-lowest hover:bg-surface-container-low transition-colors disabled:opacity-50 disabled:cursor-not-allowed" type="button" disabled>
-              <svg className="h-5 w-5 mr-2 text-[#0A66C2] opacity-50" fill="currentColor" viewBox="0 0 24 24">
+            <button
+              className="flex items-center justify-center w-full px-4 py-2 border border-outline-variant rounded-lg bg-surface-container-lowest hover:bg-surface-container-low transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              type="button"
+              onClick={handleLinkedInLogin}
+              disabled={isSubmitting}
+            >
+              <svg className="h-5 w-5 mr-2 text-[#0A66C2]" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
               </svg>
-              <span className="font-label-sm text-label-sm text-on-surface opacity-50">LinkedIn</span>
+              <span className="font-label-sm text-label-sm text-on-surface">LinkedIn</span>
             </button>
           </div>
 

@@ -1,8 +1,9 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 
 export const RoleRoute = ({ role }) => {
   const { user, isAuthenticated, isLoading } = useAuth();
+  const location = useLocation();
 
   if (isLoading) {
     return (
@@ -16,8 +17,13 @@ export const RoleRoute = ({ role }) => {
     return <Navigate to="/login" replace />;
   }
 
-  if (!user.hasProfile && user.role !== 'ADMIN') {
-    return <Navigate to="/setup-role" replace />;
+  const setupCompleted = localStorage.getItem('bluecollar_setup_completed') === 'true' || user.role === 'EMPLOYER' || user.role === 'ADMIN';
+
+  if (!user.hasProfile && !setupCompleted) {
+    const isProfilePage = location.pathname === '/worker/profile' || location.pathname === '/employer/profile';
+    if (!isProfilePage) {
+      return <Navigate to="/setup-role" replace />;
+    }
   }
 
   if (user.role !== role) {

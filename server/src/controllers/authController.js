@@ -57,4 +57,13 @@ export const updateRole = async (req, res) => {
   });
 };
 
+export const linkedinAuth = async (req, res) => {
+  const { code, role } = req.body;
+  const result = await authService.linkedinAuth({ code, role });
+  res.status(200).json({
+    success: true,
+    data: result
+  });
+};
+
 
