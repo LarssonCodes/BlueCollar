@@ -17,3 +17,9 @@ export const updatePasswordSchema = z.object({
   currentPassword: z.string().min(1, 'Current password is required'),
   newPassword: z.string().min(8, 'New password must be at least 8 characters long').max(100, 'New password must be at most 100 characters long')
 });
+
+export const googleAuthSchema = z.object({
+  accessToken: z.string().trim().min(1, 'Access token is required'),
+  role: z.enum(['WORKER', 'EMPLOYER']).optional()
+});
+

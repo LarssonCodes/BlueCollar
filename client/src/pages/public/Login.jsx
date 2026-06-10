@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useLanguage } from '../../context/LanguageContext.jsx';
-import { login } from '../../api/auth.js';
+import { login, googleAuth } from '../../api/auth.js';
 
 export default function Login() {
   const { login: authLogin } = useAuth();
@@ -15,6 +15,47 @@ export default function Login() {
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [googleClient, setGoogleClient] = useState(null);
+
+  useEffect(() => {
+    if (window.google) {
+      const client = window.google.accounts.oauth2.initTokenClient({
+        client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+        scope: 'email profile',
+        callback: async (tokenResponse) => {
+          if (tokenResponse && tokenResponse.access_token) {
+            setError('');
+            setIsSubmitting(true);
+            try {
+              const res = await googleAuth({ accessToken: tokenResponse.access_token });
+              if (res.data && res.data.success) {
+                const { token, user } = res.data.data;
+                authLogin(token, user);
+                
+                if (user.role === 'WORKER') navigate('/worker/dashboard');
+                else if (user.role === 'EMPLOYER') navigate('/employer/dashboard');
+                else if (user.role === 'ADMIN') navigate('/admin');
+              }
+            } catch (err) {
+              setError(err.response?.data?.error || t('login.errorFailed'));
+            } finally {
+              setIsSubmitting(false);
+            }
+          }
+        },
+      });
+      setGoogleClient(client);
+    }
+  }, [authLogin, navigate, t]);
+
+  const handleGoogleLogin = () => {
+    if (googleClient) {
+      googleClient.requestAccessToken();
+    } else {
+      setError('Google Sign-In is currently unavailable. Please verify the configuration.');
+    }
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -175,7 +216,12 @@ export default function Login() {
 
         {/* Social Login */}
         <div className="grid grid-cols-2 gap-4 mb-6">
-          <button className="flex items-center justify-center w-full px-4 py-2 border border-outline-variant rounded-lg bg-surface-container-lowest hover:bg-surface-container-low transition-colors" type="button">
+          <button
+            className="flex items-center justify-center w-full px-4 py-2 border border-outline-variant rounded-lg bg-surface-container-lowest hover:bg-surface-container-low transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            type="button"
+            onClick={handleGoogleLogin}
+            disabled={isSubmitting}
+          >
             <svg className="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
               <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />

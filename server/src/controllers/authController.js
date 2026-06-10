@@ -38,3 +38,13 @@ export const updatePassword = async (req, res) => {
     data: result
   });
 };
+
+export const googleAuth = async (req, res) => {
+  const { accessToken, role } = req.body;
+  const result = await authService.googleAuth({ accessToken, role });
+  res.status(200).json({
+    success: true,
+    data: result
+  });
+};
+

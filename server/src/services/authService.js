@@ -141,3 +141,86 @@ export const updatePassword = async ({ userId, currentPassword, newPassword }) =
 
   return { message: 'Password updated successfully' };
 };
+
+/**
+ * Authenticate with Google access token (sign up/sign in)
+ */
+export const googleAuth = async ({ accessToken, role }) => {
+  // 1. Verify access token and get user info from Google
+  let googleUser;
+  try {
+    const response = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      const error = new Error('Invalid Google access token');
+      error.status = 401;
+      throw error;
+    }
+
+    googleUser = await response.json();
+  } catch (err) {
+    const error = new Error(err.message || 'Google authentication failed');
+    error.status = err.status || 401;
+    throw error;
+  }
+
+  const { email } = googleUser;
+
+  if (!email) {
+    const error = new Error('Google account does not provide an email address');
+    error.status = 400;
+    throw error;
+  }
+
+  const normalizedEmail = email.toLowerCase();
+
+  // 2. Look up user by email
+  let user = await prisma.user.findUnique({
+    where: { email: normalizedEmail },
+  });
+
+  if (!user) {
+    // 3. User does not exist, check if we have a role to register
+    if (!role) {
+      const error = new Error('Account does not exist. Please register first.');
+      error.status = 404;
+      throw error;
+    }
+
+    if (!['WORKER', 'EMPLOYER'].includes(role)) {
+      const error = new Error('Invalid role specified for registration');
+      error.status = 400;
+      throw error;
+    }
+
+    // Generate a random secure password for the new OAuth user
+    const randomPassword = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    const hashedPassword = await bcrypt.hash(randomPassword, 12);
+
+    // Create new user
+    user = await prisma.user.create({
+      data: {
+        email: normalizedEmail,
+        password: hashedPassword,
+        role: role,
+      },
+    });
+  }
+
+  // 4. Generate app JWT token
+  const token = generateToken(user.id, user.role);
+
+  return {
+    token,
+    user: {
+      id: user.id,
+      email: user.email,
+      role: user.role,
+    },
+  };
+};
+
