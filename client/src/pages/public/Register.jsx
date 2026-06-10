@@ -17,22 +17,44 @@ export default function Register() {
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const renderTermsLabel = () => {
+    const text = t('register.termsLabel');
+    const parts = text.split(/(\{terms\}|\{privacy\})/);
+    return parts.map((part, index) => {
+      if (part === '{terms}') {
+        return (
+          <Link key={index} className="font-label-md text-primary hover:underline" to="/terms">
+            {t('register.terms')}
+          </Link>
+        );
+      }
+      if (part === '{privacy}') {
+        return (
+          <Link key={index} className="font-label-md text-primary hover:underline" to="/privacy">
+            {t('register.privacy')}
+          </Link>
+        );
+      }
+      return part;
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
     if (!role) {
-      setError('Please select an account type');
+      setError(t('register.errorSelectRole'));
       return;
     }
 
     if (password.length < 8) {
-      setError('Password must be at least 8 characters long');
+      setError(t('register.errorPasswordLength'));
       return;
     }
 
     if (!agreeTerms) {
-      setError('You must agree to the Terms of Service and Privacy Policy');
+      setError(t('register.errorTerms'));
       return;
     }
 
@@ -47,14 +69,14 @@ export default function Register() {
         else if (user.role === 'EMPLOYER') navigate('/employer/dashboard');
       }
     } catch (err) {
-      setError(err.response?.data?.error || 'Registration failed. Please try again.');
+      setError(err.response?.data?.error || t('register.errorFailed'));
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-background font-body-md text-on-surface flex antialiased">
+    <div className="min-h-screen bg-background font-body-md text-on-surface flex antialiased animate-page-entry">
       {/* Left Branding Panel (Hidden on Mobile) */}
       <div className="hidden lg:flex lg:w-5/12 relative flex-col justify-between p-12 overflow-hidden bg-on-surface">
         {/* Background Image with Overlay */}
@@ -73,11 +95,11 @@ export default function Register() {
             <span className="material-symbols-outlined text-inverse-primary text-[32px] fill">architecture</span>
             <span className="font-headline-md text-headline-md text-surface-container-lowest font-bold">BlueCollar</span>
           </Link>
-          <h1 className="font-headline-xl text-headline-xl text-surface-container-lowest mb-6 max-w-md">
-            Build your career.<br />Hire the best.
+          <h1 className="font-headline-xl text-headline-xl text-surface-container-lowest mb-6 max-w-md whitespace-pre-line">
+            {t('register.brandTitle')}
           </h1>
           <p className="font-body-lg text-body-lg text-surface-variant max-w-md leading-relaxed">
-            The premier platform connecting skilled tradespeople with top-tier industrial and construction employers.
+            {t('register.brandSubtitle')}
           </p>
         </div>
 
@@ -93,7 +115,7 @@ export default function Register() {
               <span className="font-label-sm text-label-sm text-on-surface font-semibold">+2k</span>
             </div>
           </div>
-          <p className="font-label-sm text-label-sm text-surface-variant">Professionals joined this week</p>
+          <p className="font-label-sm text-label-sm text-surface-variant">{t('register.professionalsJoined')}</p>
         </div>
       </div>
 
@@ -108,10 +130,10 @@ export default function Register() {
 
           <div className="mb-6 text-center lg:text-left">
             <h2 className="font-headline-lg-mobile lg:font-headline-lg text-headline-lg-mobile lg:text-headline-lg text-on-surface mb-1 font-bold">
-              Create an account
+              {t('register.title')}
             </h2>
             <p className="font-body-md text-body-md text-on-surface-variant">
-              Join the network of skilled professionals and top employers.
+              {t('register.subtitle')}
             </p>
           </div>
 
@@ -119,7 +141,7 @@ export default function Register() {
             {/* Account Type Selection (Bento Style) */}
             <div className="space-y-2 mb-6">
               <label className="font-label-md text-label-md text-on-surface block font-bold">
-                I am joining as a:
+                {t('register.roleLabel')}
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Worker Option */}
@@ -135,9 +157,9 @@ export default function Register() {
                     handyman
                   </span>
                   <div>
-                    <h3 className="font-label-md text-label-md text-on-surface font-bold">Worker</h3>
+                    <h3 className="font-label-md text-label-md text-on-surface font-bold">{t('register.workerCard')}</h3>
                     <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-                      I want to find jobs and manage my career.
+                      {t('register.workerDesc')}
                     </p>
                   </div>
                 </div>
@@ -155,9 +177,9 @@ export default function Register() {
                     domain
                   </span>
                   <div>
-                    <h3 className="font-label-md text-label-md text-on-surface font-bold">Employer</h3>
+                    <h3 className="font-label-md text-label-md text-on-surface font-bold">{t('register.employerCard')}</h3>
                     <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-                      I want to post jobs and hire talent.
+                      {t('register.employerDesc')}
                     </p>
                   </div>
                 </div>
@@ -168,7 +190,7 @@ export default function Register() {
             <div className="space-y-4">
               <div>
                 <label className="block font-label-md text-label-md text-on-surface mb-1 font-bold" htmlFor="email">
-                  Email Address
+                  {t('register.emailLabel')}
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant">
@@ -188,7 +210,7 @@ export default function Register() {
 
               <div>
                 <label className="block font-label-md text-label-md text-on-surface mb-1 font-bold" htmlFor="password">
-                  Password
+                  {t('register.passwordLabel')}
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant">
@@ -214,7 +236,7 @@ export default function Register() {
                   </button>
                 </div>
                 <p className="mt-2 font-body-sm text-body-sm text-on-surface-variant">
-                  Must be at least 8 characters long.
+                  {t('register.passwordLengthHint')}
                 </p>
               </div>
             </div>
@@ -232,7 +254,7 @@ export default function Register() {
               </div>
               <div className="ml-3 text-sm">
                 <label className="font-body-sm text-body-sm text-on-surface-variant cursor-pointer select-none" htmlFor="terms">
-                  I agree to the <a className="font-label-md text-primary hover:underline" href="#">Terms of Service</a> and <a className="font-label-md text-primary hover:underline" href="#">Privacy Policy</a>.
+                  {renderTermsLabel()}
                 </label>
               </div>
             </div>
@@ -251,16 +273,16 @@ export default function Register() {
               type="submit"
               disabled={isSubmitting}
             >
-              <span>{isSubmitting ? 'Creating Account...' : 'Create Account'}</span>
+              <span>{isSubmitting ? t('register.submitting') : t('register.submitButton')}</span>
               <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
             </button>
           </form>
 
           <div className="mt-6 text-center">
             <p className="font-body-sm text-body-sm text-on-surface-variant">
-              Already have an account?{' '}
+              {t('register.haveAccount')}{' '}
               <Link to="/login" className="font-label-md text-primary hover:text-surface-tint font-semibold hover:underline transition-colors">
-                Log in
+                {t('register.loginNow')}
               </Link>
             </p>
           </div>

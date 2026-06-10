@@ -11,8 +11,8 @@ function Footer() {
           </span>
         </div>
         <div className="flex gap-6">
-          <a href="#" className="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors">Privacy Policy</a>
-          <a href="#" className="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors">Terms of Service</a>
+          <Link to="/privacy" className="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors">Privacy Policy</Link>
+          <Link to="/terms" className="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors">Terms of Service</Link>
           <Link to="/support" className="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors">Support & Contact</Link>
         </div>
       </div>

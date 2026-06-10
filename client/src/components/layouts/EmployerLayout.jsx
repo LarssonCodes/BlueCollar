@@ -169,7 +169,7 @@ function EmployerLayout() {
       {/* Main Content Area */}
       <main className="flex-grow md:ml-64 p-stack-md md:p-stack-lg min-h-screen flex flex-col pb-24 md:pb-stack-lg">
         {/* Outlet for nested pages */}
-        <div className="max-w-container-max w-full mx-auto flex-grow flex flex-col">
+        <div key={location.pathname} className="max-w-container-max w-full mx-auto flex-grow flex flex-col animate-page-entry">
           <Outlet />
         </div>
       </main>

@@ -80,11 +80,24 @@ async function main() {
     }
   });
 
+  // 3. Reset/Create Admin
+  await prisma.user.upsert({
+    where: { email: 'admin@test.com' },
+    update: { password: passwordHash, role: 'ADMIN' },
+    create: {
+      email: 'admin@test.com',
+      password: passwordHash,
+      role: 'ADMIN'
+    }
+  });
+
   console.log('Test accounts with fixed credentials created/reset successfully:');
   console.log('Worker: worker@test.com / Password123!');
   console.log('Employer: employer@test.com / Password123!');
+  console.log('Admin: admin@test.com / Password123!');
 }
 
 main()
   .catch(console.error)
   .finally(() => prisma.$disconnect());
+

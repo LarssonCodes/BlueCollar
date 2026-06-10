@@ -23,6 +23,9 @@ function BrowseJobsPage() {
   const [typeInput, setTypeInput] = useState(searchParams.get('type') || '');
   const [sortInput, setSortInput] = useState('newest');
 
+  // Mobile filter drawer state
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
+
   // API State
   const [jobs, setJobs] = useState([]);
   const [total, setTotal] = useState(0);
@@ -75,6 +78,7 @@ function BrowseJobsPage() {
     if (typeInput) newParams.set('type', typeInput);
     newParams.set('page', '1');
     setSearchParams(newParams);
+    setShowMobileFilters(false);
   };
 
   const handlePageChange = (newPage) => {
@@ -88,6 +92,7 @@ function BrowseJobsPage() {
     setPincodeInput('');
     setTypeInput('');
     setSearchParams({});
+    setShowMobileFilters(false);
   };
 
   // Sort logic (local simulation)
@@ -102,6 +107,19 @@ function BrowseJobsPage() {
     return list;
   }, [jobs, sortInput]);
 
+  const activeFilterCount = useMemo(() => {
+    let count = 0;
+    if (searchParams.get('trade')) count++;
+    if (searchParams.get('pincode')) count++;
+    if (searchParams.get('type')) count++;
+    return count;
+  }, [searchParams]);
+
+  const getTradeIcon = (tradeVal) => {
+    const opt = TRADE_OPTIONS.find(o => o.value === tradeVal);
+    return opt ? opt.icon : 'work';
+  };
+
   const currentPage = parseInt(searchParams.get('page'), 10) || 1;
   const formatDate = (dateStr) => {
     if (!dateStr) return '';
@@ -112,11 +130,36 @@ function BrowseJobsPage() {
 
   return (
     <div className="flex-grow flex flex-col px-margin-mobile md:px-margin-desktop py-stack-md max-w-container-max mx-auto w-full">
+      
+      {/* Mobile Filter Toggle Bar (Visible only on lg:hidden) */}
+      <div className="lg:hidden mb-4 flex items-center justify-between bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 shadow-level-1">
+        <div className="flex items-center gap-2">
+          <span className="material-symbols-outlined text-primary text-[22px]">filter_alt</span>
+          <span className="text-headline-sm font-headline-sm text-on-surface">Filters</span>
+          {activeFilterCount > 0 && (
+            <span className="bg-primary/10 text-primary rounded-full px-2.5 py-0.5 text-label-sm font-label-sm font-bold">
+              {activeFilterCount} Active
+            </span>
+          )}
+        </div>
+        <button
+          onClick={() => setShowMobileFilters(!showMobileFilters)}
+          className="flex items-center gap-1.5 px-4 py-2 border border-outline-variant rounded-lg text-label-md font-label-md text-on-surface hover:bg-surface-container-low transition-all"
+        >
+          <span>{showMobileFilters ? 'Hide Filters' : 'Show Filters'}</span>
+          <span className={`material-symbols-outlined transition-transform duration-200 text-outline ${showMobileFilters ? 'rotate-180' : ''}`}>
+            expand_more
+          </span>
+        </button>
+      </div>
+
       {/* 12-Column Grid Split (3 Sidebar / 9 Content) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter mt-4 flex-grow">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter mt-2 flex-grow">
         
         {/* Left Column: Sticky Sidebar Filters */}
-        <aside className="lg:col-span-3 flex-shrink-0 bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-6 h-fit sticky top-20 shadow-level-1">
+        <aside className={`lg:col-span-3 flex-shrink-0 bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-6 h-fit lg:sticky lg:top-20 shadow-level-1 transition-all duration-300 ${
+          showMobileFilters ? 'block' : 'hidden lg:block'
+        }`}>
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-headline-sm font-headline-sm text-on-surface">Filters</h2>
             <button
@@ -271,53 +314,82 @@ function BrowseJobsPage() {
                   return (
                     <article
                       key={job.id}
-                      className="bg-surface-container-lowest shadow-level-1 rounded-xl p-6 border border-outline-variant/30 transition-all duration-300 hover:shadow-level-2 hover:-translate-y-0.5 flex flex-col md:flex-row justify-between gap-6"
+                      className="bg-surface-container-lowest border border-outline-variant/30 hover:border-primary/20 rounded-2xl p-6 transition-all duration-300 hover:shadow-level-2 hover:-translate-y-0.5 flex flex-col md:flex-row gap-6 relative overflow-hidden"
                     >
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-3">
-                          <StatusBadge status={job.trade} />
+                      {/* Left Column: Trade Avatar (Desktop only) */}
+                      <div className="hidden md:flex flex-col items-center gap-2 shrink-0">
+                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/5 to-primary-container/15 flex items-center justify-center text-primary border border-primary-container/10 shadow-sm relative transition-transform">
+                          <span className="material-symbols-outlined text-2xl font-normal select-none">{getTradeIcon(job.trade)}</span>
+                        </div>
+                        <span className="text-[11px] font-semibold tracking-wider text-outline uppercase mt-1">
+                          {job.trade}
+                        </span>
+                      </div>
+
+                      {/* Middle Column: Main details */}
+                      <div className="flex-grow flex-1">
+                        <div className="flex flex-wrap items-center gap-2 mb-2">
+                          {/* Trade Badge on Mobile only */}
+                          <span className="md:hidden">
+                            <StatusBadge status={job.trade} />
+                          </span>
+                          <span className="bg-surface-container-low text-on-surface-variant px-2.5 py-0.5 rounded-full font-label-sm text-label-sm border border-outline-variant/20 select-none">
+                            {job.type}
+                          </span>
                           {job.payAmount >= 800 && (
-                            <span className="bg-[#FFF7ED] text-[#EA580C] px-2 py-0.5 rounded font-label-sm text-label-sm flex items-center gap-1 select-none font-semibold">
+                            <span className="bg-[#FFF7ED] text-[#EA580C] px-2.5 py-0.5 rounded-full font-label-sm text-label-sm flex items-center gap-1 select-none font-semibold border border-[#FFEDD5]">
                               <span className="material-symbols-outlined text-[14px]">local_fire_department</span>
                               Urgent
                             </span>
                           )}
                         </div>
-                        
-                        <h2 className="text-headline-sm font-headline-sm text-on-surface mb-1 font-bold group-hover:text-primary transition-colors">
+
+                        <h2 className="text-headline-sm font-headline-sm text-on-surface mb-1 font-bold tracking-tight">
                           {job.title}
                         </h2>
-                        <p className="text-body-md font-body-md text-on-surface-variant mb-4">
-                          {job.employer?.fullName || 'Employer'}
+
+                        <p className="text-body-md font-body-md text-on-surface-variant/90 mb-4 flex items-center gap-1.5">
+                          <span className="material-symbols-outlined text-base text-outline">corporate_fare</span>
+                          <span>{job.employer?.fullName || 'Employer'}</span>
                         </p>
 
-                        <div className="flex flex-wrap gap-x-6 gap-y-2 text-on-surface-variant font-body-sm text-body-sm">
-                          <span className="flex items-center gap-1">
-                            <span className="material-symbols-outlined text-base">location_on</span>
-                            {job.city}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-2.5 gap-x-4 mb-4 text-on-surface-variant font-body-sm text-body-sm">
+                          <span className="flex items-center gap-2">
+                            <span className="w-7 h-7 rounded-lg bg-surface flex items-center justify-center text-outline">
+                              <span className="material-symbols-outlined text-base">location_on</span>
+                            </span>
+                            <span>{job.city}</span>
                           </span>
-                          <span className="flex items-center gap-1 font-semibold text-on-surface">
-                            <span className="material-symbols-outlined text-base font-normal text-on-surface-variant">payments</span>
-                            ₹ {job.payAmount.toLocaleString('en-IN')} / {payPeriod}
+
+                          <span className="flex items-center gap-2 font-semibold text-on-surface">
+                            <span className="w-7 h-7 rounded-lg bg-surface flex items-center justify-center text-primary">
+                              <span className="material-symbols-outlined text-base">payments</span>
+                            </span>
+                            <span>₹ {job.payAmount.toLocaleString('en-IN')} / {payPeriod}</span>
                           </span>
-                          <span className="flex items-center gap-1">
-                            <span className="material-symbols-outlined text-base">work</span>
-                            {job.type}
+
+                          <span className="flex items-center gap-2">
+                            <span className="w-7 h-7 rounded-lg bg-surface flex items-center justify-center text-outline">
+                              <span className="material-symbols-outlined text-base">calendar_today</span>
+                            </span>
+                            <span>Starts {formatDate(job.startDate)}</span>
                           </span>
                         </div>
-                        
-                        <p className="text-body-sm font-body-sm text-on-surface-variant mt-4 line-clamp-2 leading-relaxed">
+
+                        <p className="text-body-sm font-body-sm text-on-surface-variant/70 line-clamp-2 leading-relaxed mt-2 border-t border-outline-variant/10 pt-3">
                           {job.description}
                         </p>
                       </div>
 
-                      <div className="flex md:flex-col items-center md:items-end justify-between md:justify-start gap-4 shrink-0 mt-4 md:mt-0">
-                        <span className="text-label-sm font-label-sm text-outline">
-                          Starts {formatDate(job.startDate)}
-                        </span>
+                      {/* Right Column: Actions / Stats */}
+                      <div className="flex flex-row md:flex-col items-center md:items-end justify-between md:justify-center gap-4 shrink-0 mt-4 md:mt-0 md:pl-4 md:border-l border-outline-variant/10">
+                        <div className="hidden md:flex flex-col items-end">
+                          <span className="text-[11px] text-outline uppercase tracking-wider">Posted</span>
+                          <span className="text-body-sm font-medium text-on-surface">{formatDate(job.createdAt)}</span>
+                        </div>
                         <Link
                           to={`/worker/jobs/${job.id}`}
-                          className="bg-primary text-on-primary font-label-md text-label-md px-6 py-2.5 rounded-lg hover:bg-surface-tint transition-all shadow-sm w-full md:w-auto text-center"
+                          className="bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md px-6 py-3 rounded-xl transition-all shadow-sm w-full md:w-auto text-center font-bold tracking-wide active:scale-[0.98]"
                         >
                           View Details
                         </Link>

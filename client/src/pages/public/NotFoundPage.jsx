@@ -20,7 +20,7 @@ function NotFoundPage() {
   };
 
   return (
-    <div className="flex-grow flex flex-col items-center justify-center p-8 text-center bg-background min-h-[60vh] max-w-md mx-auto animate-in fade-in duration-200">
+    <div className="flex-grow flex flex-col items-center justify-center p-8 text-center bg-background min-h-[60vh] max-w-md mx-auto animate-page-entry">
       <span className="material-symbols-outlined text-on-surface-variant text-5xl select-none">
         search_off
       </span>

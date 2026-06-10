@@ -32,14 +32,14 @@ export default function Login() {
         else if (user.role === 'ADMIN') navigate('/admin');
       }
     } catch (err) {
-      setError(err.response?.data?.error || 'Login failed. Please check your credentials.');
+      setError(err.response?.data?.error || t('login.errorFailed'));
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-background text-on-background font-body-md w-full flex items-center justify-center relative overflow-hidden">
+    <div className="min-h-screen bg-background text-on-background font-body-md w-full flex items-center justify-center relative overflow-hidden animate-page-entry">
       {/* Decorative Background Elements */}
       <div className="absolute inset-0 bg-[radial-gradient(#c3c6d7_1px,transparent_1px)] bg-[size:24px_24px] opacity-30 pointer-events-none z-0" />
       <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary-fixed opacity-20 blur-3xl z-0" />
@@ -51,7 +51,7 @@ export default function Login() {
         className="absolute top-6 left-6 z-20 flex items-center gap-1.5 text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors"
       >
         <span className="material-symbols-outlined text-lg">arrow_back</span>
-        <span>Back to Home</span>
+        <span>{t('common.backToHome')}</span>
       </Link>
 
       {/* Login Card Container */}
@@ -62,10 +62,10 @@ export default function Login() {
             <span className="material-symbols-outlined text-[28px] fill">work</span>
           </div>
           <h1 className="font-headline-md text-headline-md text-on-surface mb-1">
-            Welcome to BlueCollar
+            {t('login.title')}
           </h1>
           <p className="font-body-sm text-body-sm text-on-surface-variant">
-            Log in to manage your professional journey.
+            {t('login.subtitle')}
           </p>
         </div>
 
@@ -74,7 +74,7 @@ export default function Login() {
           {/* Email Input */}
           <div>
             <label className="block font-label-sm text-label-sm text-on-surface mb-1" htmlFor="email">
-              Email Address
+              {t('login.emailLabel')}
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant">
@@ -96,10 +96,10 @@ export default function Login() {
           <div>
             <div className="flex items-center justify-between mb-1">
               <label className="block font-label-sm text-label-sm text-on-surface" htmlFor="password">
-                Password
+                {t('login.passwordLabel')}
               </label>
               <a className="font-label-sm text-label-sm text-primary hover:text-on-primary-fixed-variant transition-colors" href="#">
-                Forgot Password?
+                {t('login.forgotPassword')}
               </a>
             </div>
             <div className="relative">
@@ -137,7 +137,7 @@ export default function Login() {
               onChange={e => setRememberMe(e.target.checked)}
             />
             <label className="ml-2 block font-body-sm text-body-sm text-on-surface-variant cursor-pointer select-none" htmlFor="remember-me">
-              Keep me signed in
+              {t('login.keepSignedIn')}
             </label>
           </div>
 
@@ -156,7 +156,7 @@ export default function Login() {
               type="submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? 'Signing In...' : 'Sign In'}
+              {isSubmitting ? t('login.loggingIn') : t('login.submitButton')}
             </button>
           </div>
         </form>
@@ -168,7 +168,7 @@ export default function Login() {
           </div>
           <div className="relative flex justify-center text-sm">
             <span className="px-2 bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
-              Or continue with
+              {t('login.orContinueWith')}
             </span>
           </div>
         </div>
@@ -195,16 +195,16 @@ export default function Login() {
         {/* Sign Up Links */}
         <div className="text-center rounded-lg bg-surface-container-low p-stack-md mt-6">
           <p className="font-body-sm text-body-sm text-on-surface-variant mb-1">
-            Don't have an account?
+            {t('login.noAccount')}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-4 mt-2">
             <Link to="/register?role=WORKER" className="font-label-md text-label-md text-primary hover:text-surface-tint transition-colors flex items-center font-bold">
-              Worker Sign Up
+              {t('login.workerSignUp')}
               <span className="material-symbols-outlined text-[16px] ml-0.5">arrow_forward</span>
             </Link>
             <span className="hidden sm:inline text-outline-variant/60">|</span>
             <Link to="/register?role=EMPLOYER" className="font-label-md text-label-md text-secondary hover:text-on-secondary-container transition-colors flex items-center font-bold">
-              Employer Sign Up
+              {t('login.employerSignUp')}
               <span className="material-symbols-outlined text-[16px] ml-0.5">arrow_forward</span>
             </Link>
           </div>

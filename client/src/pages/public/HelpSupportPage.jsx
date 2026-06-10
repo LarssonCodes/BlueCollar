@@ -123,7 +123,7 @@ export default function HelpSupportPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col animate-page-entry">
       <TopNavBar />
 
       {/* Hero Section */}
@@ -195,7 +195,7 @@ export default function HelpSupportPage() {
 
           {/* Contact Form Column */}
           <div className="lg:col-span-4">
-            <div className="sticky top-20 bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-level-1 flex flex-col">
+            <div className="lg:sticky lg:top-20 bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-level-1 flex flex-col">
               <h3 className="font-headline-sm text-headline-sm text-on-background mb-1">
                 Contact Support
               </h3>

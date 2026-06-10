@@ -26,7 +26,7 @@ function Landing() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col animate-page-entry">
       <TopNavBar />
 
       {/* Hero Section */}
@@ -36,13 +36,13 @@ function Landing() {
           <div className="md:col-span-7 flex flex-col items-start text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm mb-6 shadow-sm border border-outline-variant">
               <span className="material-symbols-outlined text-[16px] text-primary">work</span>
-              <span>The #1 network for skilled trades</span>
+              <span>{t('landing.dedicatedPortal')}</span>
             </div>
             <h1 className="font-headline-xl text-headline-xl text-on-background max-w-xl mb-4 leading-tight tracking-tight">
-              Connecting Skilled Workers With <span className="text-primary-container">Great Opportunities</span>
+              {t('landing.heroTitle')}
             </h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl mb-8 leading-relaxed">
-              Find local jobs or hire trusted workers for gigs and contract work across India. Join a growing community of professionals building their careers.
+              {t('landing.heroSubtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
               <Link
