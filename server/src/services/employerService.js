@@ -88,9 +88,12 @@ export const getEmployerStats = async (userId) => {
   });
 
   if (!profile) {
-    const error = new Error('Employer profile not found');
-    error.status = 404;
-    throw error;
+    return {
+      jobsPosted: 0,
+      openJobs: 0,
+      filledJobs: 0,
+      totalApplicants: 0
+    };
   }
 
   const jobsPosted = await prisma.job.count({
@@ -130,9 +133,7 @@ export const getRecentEmployerJobs = async (userId) => {
   });
 
   if (!profile) {
-    const error = new Error('Employer profile not found');
-    error.status = 404;
-    throw error;
+    return [];
   }
 
   const jobs = await prisma.job.findMany({

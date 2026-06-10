@@ -98,9 +98,15 @@ export const getWorkerStats = async (userId) => {
   });
 
   if (!profile) {
-    const error = new Error('Worker profile not found');
-    error.status = 404;
-    throw error;
+    const activeJobs = await prisma.job.count({
+      where: { status: 'OPEN' }
+    });
+    return {
+      applicationsSent: 0,
+      shortlisted: 0,
+      rejected: 0,
+      activeJobs
+    };
   }
 
   const [applicationsSent, shortlisted, rejected, activeJobs] = await Promise.all([
