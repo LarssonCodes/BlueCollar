@@ -18,60 +18,81 @@ export default function Register() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [googleClient, setGoogleClient] = useState(null);
 
-  useEffect(() => {
-    if (window.google) {
-      const client = window.google.accounts.oauth2.initTokenClient({
-        client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-        scope: 'email profile',
-        callback: async (tokenResponse) => {
-          if (tokenResponse && tokenResponse.access_token) {
-            setError('');
-            setIsSubmitting(true);
-            try {
-              const res = await googleAuth({ 
-                accessToken: tokenResponse.access_token,
-                role: role
-              });
-              if (res.data && res.data.success) {
-                const { token, user } = res.data.data;
-                authLogin(token, user);
-                
-                if (!user.hasProfile) {
-                  navigate('/setup-role');
-                } else if (user.role === 'WORKER') navigate('/worker/dashboard');
-                else if (user.role === 'EMPLOYER') navigate('/employer/dashboard');
-              }
-            } catch (err) {
-              setError(err.response?.data?.error || t('register.errorFailed'));
-            } finally {
-              setIsSubmitting(false);
-            }
-          }
-        },
-      });
-      setGoogleClient(client);
+  const googleTokenCallback = async (tokenResponse) => {
+    if (tokenResponse && tokenResponse.access_token) {
+      setError('');
+      setIsSubmitting(true);
+      try {
+        const res = await googleAuth({
+          accessToken: tokenResponse.access_token,
+          role: role
+        });
+        if (res.data && res.data.success) {
+          const { token, user } = res.data.data;
+          authLogin(token, user);
+          if (!user.hasProfile) {
+            navigate('/setup-role');
+          } else if (user.role === 'WORKER') navigate('/worker/dashboard');
+          else if (user.role === 'EMPLOYER') navigate('/employer/dashboard');
+        }
+      } catch (err) {
+        setError(err.response?.data?.error || t('register.errorFailed'));
+      } finally {
+        setIsSubmitting(false);
+      }
     }
-  }, [authLogin, navigate, t, role]);
+  };
+
+  const initGoogleClient = () => {
+    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+    if (!clientId) return null;
+    if (!window.google?.accounts?.oauth2) return null;
+    return window.google.accounts.oauth2.initTokenClient({
+      client_id: clientId,
+      scope: 'email profile',
+      callback: googleTokenCallback,
+    });
+  };
+
+  useEffect(() => {
+    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+    if (!clientId) return;
+
+    if (window.google?.accounts?.oauth2) {
+      setGoogleClient(initGoogleClient());
+      return;
+    }
+
+    const scriptEl = document.querySelector('script[src*="accounts.google.com/gsi/client"]');
+    if (scriptEl) {
+      const onLoad = () => setGoogleClient(initGoogleClient());
+      scriptEl.addEventListener('load', onLoad);
+      return () => scriptEl.removeEventListener('load', onLoad);
+    }
+  }, []);
 
   const handleGoogleRegister = () => {
     if (!agreeTerms) {
       setError(t('register.errorTerms'));
       return;
     }
-    
+
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-    const isMock = !clientId || clientId.includes('placeholder') || clientId.includes('mock');
-    
-    if (isMock) {
-      console.log("Using mock Google Sign-In sandbox.");
+    if (!clientId) {
       navigate('/auth/google/mock');
       return;
     }
-    
-    if (googleClient) {
-      googleClient.requestAccessToken();
+
+    let client = googleClient;
+    if (!client && window.google?.accounts?.oauth2) {
+      client = initGoogleClient();
+      setGoogleClient(client);
+    }
+
+    if (client) {
+      client.requestAccessToken();
     } else {
-      setError('Google Sign-In is currently unavailable. Please verify the configuration.');
+      setError('Google Sign-In is unavailable. The page may still be loading — please wait a moment and try again.');
     }
   };
 
