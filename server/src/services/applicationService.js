@@ -130,7 +130,7 @@ export const getJobApplications = async (jobId, userId) => {
     throw error;
   }
 
-  // 4. Query applications (excluding phone)
+  // 4. Query applications (fetching phone to reveal if shortlisted)
   const applications = await prisma.application.findMany({
     where: { jobId },
     orderBy: { createdAt: 'desc' },
@@ -146,13 +146,21 @@ export const getJobApplications = async (jobId, userId) => {
           trade: true,
           experience: true,
           city: true,
-          pincode: true
+          pincode: true,
+          phone: true
         }
       }
     }
   });
 
-  return applications;
+  // Sanitize: hide phone numbers unless candidate is SHORTLISTED
+  return applications.map(app => {
+    if (app.status !== 'SHORTLISTED') {
+      const { phone, ...workerWithoutPhone } = app.worker;
+      return { ...app, worker: workerWithoutPhone };
+    }
+    return app;
+  });
 };
 
 /**
